@@ -2,10 +2,15 @@
 
 As of version 1.3, MtcdTools is even more powerful.
 
-#Available features:
+[![GitHub release](https://img.shields.io/github/release/patrickfav/MtcTools.svg)](https://github.com/patrickfav/MtcTools/releases/latest)
+[![Build Status](https://travis-ci.org/patrickfav/MtcTools.svg?branch=master)](https://travis-ci.org/patrickfav/MtcTools)
+
+# Available features:
 
 ## Action
+
 ### Key action
+
 Use this action to simulate a press of an android media key (e.g. play, next, pause).
 
 * **List of available key codes to simulate**:
@@ -19,13 +24,16 @@ Use this action to simulate a press of an android media key (e.g. play, next, pa
   * KEYCODE_MEDIA_STOP
 
 ### Launch action
+
 Use this action to launch an application installed on the system. MtcdTools will prepare a list of installed applications for you.
 
 ### Start intent action
+
 As of version 1.6, Start activity action has been replaced by Start intent action.
 Similar feature is available in Tasker. It is useful to launch an application in a non standard way, e.g. displays specific activity accordingly to provided data URI. As of version 1.6 is possible to select target for the intent (Service or Activity). More information how to deal with intent are available on [Android Developer site](https://developer.android.com/reference/android/content/Intent.html).
 
 ### Broadcast intent action
+
 Similar feature is available in Tasker. Use this action to broadcast an intent through the system. Some applications are using this mechanism to communicate with other apps. E.g. MTC devices are using this mechanism to notify about key press. More information how to deal with broadcast are available on [Android Developer site](https://developer.android.com/guide/components/broadcasts.html).
 
 ## Actions sequence
@@ -61,7 +69,7 @@ As of version 1.4, the MODE functionality has been added. To the MODE list you c
 As of version 1.3 you are able to bind your defined objects (actions, action sequences, action lists, MODE lists) not only to single key but also to keys sequence. It means that you can press any variation of hard keys (device keys and steering wheel keys) to execute your defined action.
 
 ## Voice control
-> If you want to make hands-free calls, consider to use [MtcDialer](https://github.com/f1xpl/MtcDialer).
+> If you want to make hands-free calls, consider to use [MtcTools](https://github.com/f1xpl/MtcTools).
 
 As of version 1.3 you are able to control your device using voice. You can say your defined actions or action sequences names, then MtcdTools will execute it for you with provided order. It is possible to execute a single action or action sequence, or mix them together using "concatenation word" that you can define in Settings. Voice control is localized. Input language corresponds to the local language of your device. If "Google Now" supports your language, then MtcdTools will support it as well.
 
@@ -77,6 +85,7 @@ As of version 1.3 you are able to control your device using voice. You can say y
 As of version 1.5 there is possibility to create an autorun list. To the list you can add previously created actions and actions sequences. Items from autorun list will be executed right after MtcdTools service startup. In order to remove item from autorun, perform a long press on it.
 
 ## Settings
+
 ### Delay of execution action from the list
 >define a time after which highlighted item from the actions list is executed.
 
