@@ -1,0 +1,65 @@
+# Possible Issues:
+#
+# .gradlw permission denied:
+# git update-index --chmod=+x gradlew //http://stackoverflow.com/questions/33820638/travis-yml-gradlew-permission-denied
+
+language: android
+dist: trusty
+
+android:
+  components:
+    - tools # to get the new `repository-11.xml`
+    - platform-tools
+    - tools # to install Android SDK tools 25.1.x (x = 6 right now)
+    - build-tools-29.0.2
+    - android-29
+    - extra-google-m2repository
+    - extra-android-m2repository
+  licenses:
+    - 'android-sdk-preview-license-.+'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
+
+jobs:
+  include:
+  - stage: buildDefault
+    if: (type IN (push))
+    before_install:
+      - openssl aes-256-cbc -K $encrypted_b7b8101e1974_key -iv $encrypted_b7b8101e1974_iv -in credentials.tar.enc -out credentials.tar -d
+      - tar xvf credentials.tar
+      - mkdir "$ANDROID_HOME/licenses" || true
+      - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e" > "$ANDROID_HOME/licenses/android-sdk-license"
+      - echo -e "\n504667f4c0de7af1a06de9f4b1727b84351f2910" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
+    script:
+      - ./gradlew clean :app:assemble --stacktrace
+    deploy:
+      - provider: releases
+        api_key:
+          secure: "Dj1EVaYOPxBK5l56DgcTI1DxPRykRtiWYmEhfwLlQ/JheObFXWuPeal5TFHXN/TSfSQd2AMGpRG1mSQFBqYSrYY/p9DZsM8NCZXS4kANVKJ9oZshfciu7yCzF8QHDaMWLLF8oqHxTlEGcfXCigD64RskR6jvHaCyZn/wpYdh2GVeYi2IKrkBAq1i3rpfXb75YQG3bSaq
+          q22YE7bFyict/s0hOrrt7L3MlS74MOByPgswt5NMAS+LmzgZBgYRZ3Sn1zXNj1QzBYbkfEyLBYBDHSmTaa3XkwUpJ1Qu0sbUkLwiPsTL5pRw1xud7RGxLW95Vk4TtcWFq0zpL8J6QycyO+Mbx/n4WtggHIXgabybQx7N85Tv61qUbRRLDqFvD7nr6oEo0dtwBiHhGD5cgkojXJ/pHjY
+          1q0mLoO2hMQShp+ulVN1I8KZRxswifZkAOsBMTW32K6CdVFdYIf7Y9C6eeyhJEWv94BNE2CUCR+9AQ5JzBACPR3YoHsGbWKqk7IO29epgfyG717bKz5NeXgsXGDyBlqrzDPi/hGZyKxou1xB6OjBINZbmqMpD+z7vWt7jdmJs03XAkvEvC3gnzuZ7ypV3//q2FRVXtgDKQ2td3J76rH
+          ZJl9lHIy2Mc1fMLamcG2BrtEXpMejgq8reDeloKQ8k36ApC4uvzvSztuwUohU="
+        file_glob: true
+        file:
+          - 'app/build/outputs/apk/release/*.apk'
+        skip_cleanup: true
+        on:
+          branch: master
+          tags: true
+          
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+
+notifications:
+  slack:
+    secure: "B8udkmyM1d+eMF//PYsRsIDcnc2M4Nhpkw+EDG0MVA4TN7LpjFT+5yNFGRaOsPF2L9MQSW/S8QLP1Ll2eTqx8bMqd2LdmCFZvA0tZ8vu5EY8/lApGknHGVXEfIkhzTgbdpV6h5AfrqDfbnpzg6HMZPN2EE3ox2zVAHT6TBmxhVw67Qz5wZvCBzvxMYNiFkdSSdBU9Djp
+    ROvC68h/3FKmUqX8bxz0gTBGd7HB7Njp27Sup8Sb2xnwEFheCs0loxThBMwQf9WpobcUhm5FnHMN/O7KjeE6FY1/UQY8UOvfSsNp8wMCe6jO9vfIzToKsCYLgQebFlNhITcssntIw2GyHKCg7mvE3wY/luwNxHB9cfrwyzjn5vYYR1X1D/o2QcaArl7mQy1bKvm8CFunfddHMBFLQvj
+    N6bD3oL9CPIcKjtSwPLwLJ+UNIRtS4IG5Ob7dKiQ2Tpr1N9ad7U1+ufR8E/TPPDpDRZhHssJeS6KHuPuoXKaMXmmhh4xD0Vp242/wZj4qAzHRMTfE2QKuv3FqkWQfxwzsXSCL4GR/uDiA7EBGJwsXvHBm9ZTg/sxEDRBv5tdlm7XywKDJ8k3lflMONzeoEtl77YFDg6IooUg8c8yGUI
+    gjhQjDo1JS/51UNkqli5DUHmbz+fgaRu1JcZ8Oph5Nb+VFIEcZyN7fTPvWZ7k="
+  email: false
