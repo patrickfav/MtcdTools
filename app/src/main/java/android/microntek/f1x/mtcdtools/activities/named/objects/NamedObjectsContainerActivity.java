@@ -1,9 +1,8 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects;
 
-import android.widget.Spinner;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
+import android.widget.Spinner;
 
 /**
  * Created by f1x on 2017-02-05.
@@ -19,7 +18,7 @@ public abstract class NamedObjectsContainerActivity extends NamedObjectActivity 
         super.initControls();
 
         mNamedObjectIdsArrayAdapter = new NamedObjectIdsArrayAdapter(this);
-        mNamedObjectsSpinner = (Spinner)this.findViewById(R.id.spinnerNamedObjects);
+        mNamedObjectsSpinner = (Spinner) this.findViewById(R.id.spinnerNamedObjects);
         mNamedObjectsSpinner.setAdapter(mNamedObjectIdsArrayAdapter);
     }
 

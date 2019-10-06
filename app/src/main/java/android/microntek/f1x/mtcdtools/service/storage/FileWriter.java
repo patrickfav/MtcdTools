@@ -23,8 +23,8 @@ public class FileWriter {
     private FileOutputStream openFileOutput(String fileName) throws IOException {
         File outputFile = new File(mContext.getFilesDir(), fileName);
 
-        if(!outputFile.exists()) {
-            if(!outputFile.createNewFile()) {
+        if (!outputFile.exists()) {
+            if (!outputFile.createNewFile()) {
                 throw new IOException("Could not create file: " + outputFile.getName());
             }
         }

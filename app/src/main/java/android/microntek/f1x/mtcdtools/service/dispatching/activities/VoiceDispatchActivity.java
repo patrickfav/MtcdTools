@@ -1,14 +1,13 @@
 package android.microntek.f1x.mtcdtools.service.dispatching.activities;
 
 import android.content.Intent;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.utils.SpeechParser;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.utils.SpeechParser;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,19 +36,19 @@ public class VoiceDispatchActivity extends ServiceActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_OK || data == null) {
+        if (resultCode != RESULT_OK || data == null) {
             VoiceDispatchActivity.this.finish();
             return;
         }
 
         List<String> texts = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-        if(texts.isEmpty()) {
+        if (texts.isEmpty()) {
             VoiceDispatchActivity.this.finish();
             return;
         }
 
         final List<String> extractedTexts = mSpeechParser.parse(texts.get(0), mServiceBinder.getConfiguration().getActionsVoiceDelimiter());
-        if(extractedTexts.isEmpty()) {
+        if (extractedTexts.isEmpty()) {
             VoiceDispatchActivity.this.finish();
             return;
         }
@@ -61,7 +60,7 @@ public class VoiceDispatchActivity extends ServiceActivity {
             @Override
             public void run() {
                 List<NamedObjectId> extractedNamedObjectIds = new ArrayList<>();
-                for(String extractedText : extractedTexts) {
+                for (String extractedText : extractedTexts) {
                     extractedNamedObjectIds.add(new NamedObjectId(extractedText));
                 }
 

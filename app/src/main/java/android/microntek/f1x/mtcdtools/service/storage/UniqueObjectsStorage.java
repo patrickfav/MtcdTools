@@ -24,14 +24,14 @@ public abstract class UniqueObjectsStorage<Key, Value> extends FileStorage {
     }
 
     public void remove(Key key) throws IOException, JSONException {
-        if(mItems.containsKey(key)) {
+        if (mItems.containsKey(key)) {
             mItems.remove(key);
             write();
         }
     }
 
     public void replace(Key oldKey, Key newKey, Value newItem) throws JSONException, IOException, DuplicatedEntryException {
-        if(mItems.containsKey(oldKey)) {
+        if (mItems.containsKey(oldKey)) {
             if (!oldKey.equals(newKey) && mItems.containsKey(newKey)) {
                 throw new DuplicatedEntryException(newKey.toString());
             }
@@ -51,7 +51,7 @@ public abstract class UniqueObjectsStorage<Key, Value> extends FileStorage {
     }
 
     void put(Key key, Value value) throws DuplicatedEntryException {
-        if(mItems.containsKey(key)) {
+        if (mItems.containsKey(key)) {
             throw new DuplicatedEntryException(key.toString());
         } else {
             mItems.put(key, value);

@@ -1,13 +1,12 @@
 package android.microntek.f1x.mtcdtools.service.dispatching;
 
 import android.content.Context;
-import android.os.AsyncTask;
-
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
 import android.microntek.f1x.mtcdtools.service.storage.NamedObjectsStorage;
+import android.os.AsyncTask;
 
 import java.util.List;
 
@@ -23,20 +22,20 @@ class NamedObjectsDispatchTask extends AsyncTask<NamedObjectId, Action, Void> {
 
     @Override
     protected Void doInBackground(NamedObjectId... ids) {
-        for(NamedObjectId id : ids) {
+        for (NamedObjectId id : ids) {
             try {
-                if(isCancelled()) {
+                if (isCancelled()) {
                     return null;
                 }
 
                 NamedObject namedObject = mNamedObjectsStorage.getItem(id);
 
-                if(namedObject == null) {
+                if (namedObject == null) {
                     continue;
-                } else if(Action.isAction(namedObject.getObjectType())) {
-                    dispatchAction((Action)namedObject, 0);
-                } else if(namedObject.getObjectType().equals(ActionsSequence.OBJECT_TYPE)) {
-                    dispatchActionsSequence((ActionsSequence)namedObject);
+                } else if (Action.isAction(namedObject.getObjectType())) {
+                    dispatchAction((Action) namedObject, 0);
+                } else if (namedObject.getObjectType().equals(ActionsSequence.OBJECT_TYPE)) {
+                    dispatchActionsSequence((ActionsSequence) namedObject);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -54,18 +53,18 @@ class NamedObjectsDispatchTask extends AsyncTask<NamedObjectId, Action, Void> {
     private void dispatchActionsSequence(ActionsSequence actionsSequence) throws InterruptedException {
         List<NamedObjectId> actionIds = actionsSequence.getActionIds();
 
-        for(int i = 0; i < actionIds.size(); ++i) {
+        for (int i = 0; i < actionIds.size(); ++i) {
             NamedObject namedObject = mNamedObjectsStorage.getItem(actionIds.get(i));
 
-            if(Action.isAction(namedObject.getObjectType())) {
-                dispatchAction((Action)namedObject, actionsSequence.getDelayForAction(i));
+            if (Action.isAction(namedObject.getObjectType())) {
+                dispatchAction((Action) namedObject, actionsSequence.getDelayForAction(i));
             }
         }
     }
 
     @Override
     protected void onProgressUpdate(Action... progress) {
-        if(!isCancelled() && mContext != null) {
+        if (!isCancelled() && mContext != null) {
             progress[0].evaluate(mContext);
         }
     }

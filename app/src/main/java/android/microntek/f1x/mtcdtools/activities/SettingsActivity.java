@@ -1,5 +1,7 @@
 package android.microntek.f1x.mtcdtools.activities;
 
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,9 +9,6 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TabHost;
 import android.widget.TextView;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
 
 import java.util.Locale;
 
@@ -20,7 +19,7 @@ public class SettingsActivity extends ServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
 
         TabHost.TabSpec miscTab = tabHost.newTabSpec(this.getString(R.string.Misc));
@@ -38,8 +37,8 @@ public class SettingsActivity extends ServiceActivity {
         storeSettingsTab.setIndicator(this.getString(R.string.StoreSettings));
         tabHost.addTab(storeSettingsTab);
 
-        mActionExecutionDelaySeekBar = (SeekBar)this.findViewById(R.id.seekBarActionExecutionDelay);
-        mActionExecutionDelayValueTextView = (TextView)this.findViewById(R.id.textViewActionExecutionDelayValue);
+        mActionExecutionDelaySeekBar = (SeekBar) this.findViewById(R.id.seekBarActionExecutionDelay);
+        mActionExecutionDelayValueTextView = (TextView) this.findViewById(R.id.textViewActionExecutionDelayValue);
         mActionExecutionDelaySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -57,8 +56,8 @@ public class SettingsActivity extends ServiceActivity {
             }
         });
 
-        mVoiceCommandExecutionDelaySeekBar = (SeekBar)this.findViewById(R.id.seekBarVoiceCommandExecutionDelay);
-        mVoiceCommandExecutionDelayValueTextView = (TextView)this.findViewById(R.id.textViewVoiceCommandExecutionDelayValue);
+        mVoiceCommandExecutionDelaySeekBar = (SeekBar) this.findViewById(R.id.seekBarVoiceCommandExecutionDelay);
+        mVoiceCommandExecutionDelayValueTextView = (TextView) this.findViewById(R.id.textViewVoiceCommandExecutionDelayValue);
         mVoiceCommandExecutionDelaySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
@@ -76,8 +75,8 @@ public class SettingsActivity extends ServiceActivity {
             }
         });
 
-        mKeyPressSpeedSeekBar = (SeekBar)this.findViewById(R.id.seekBarKeyPressSpeed);
-        mKeyPressSpeedValueTextView = (TextView)this.findViewById(R.id.textViewKeyPressSpeedValue);
+        mKeyPressSpeedSeekBar = (SeekBar) this.findViewById(R.id.seekBarKeyPressSpeed);
+        mKeyPressSpeedValueTextView = (TextView) this.findViewById(R.id.textViewKeyPressSpeedValue);
 
         mKeyPressSpeedSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -96,7 +95,7 @@ public class SettingsActivity extends ServiceActivity {
             }
         });
 
-        Button cancelButton = (Button)this.findViewById(R.id.buttonCancel);
+        Button cancelButton = (Button) this.findViewById(R.id.buttonCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +103,7 @@ public class SettingsActivity extends ServiceActivity {
             }
         });
 
-        Button saveButton = (Button)this.findViewById(R.id.buttonSave);
+        Button saveButton = (Button) this.findViewById(R.id.buttonSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,14 +115,14 @@ public class SettingsActivity extends ServiceActivity {
             }
         });
 
-        mActionsVoiceDelimiterEditText = (EditText)this.findViewById(R.id.editTextActionsVoiceDelimiter);
+        mActionsVoiceDelimiterEditText = (EditText) this.findViewById(R.id.editTextActionsVoiceDelimiter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mVoiceCommandExecutionDelaySeekBar.setProgress(mServiceBinder.getConfiguration().getVoiceCommandExecutionDelay());
             mVoiceCommandExecutionDelayValueTextView.setText(String.format(Locale.getDefault(), "%d [ms]", mVoiceCommandExecutionDelaySeekBar.getProgress()));
 

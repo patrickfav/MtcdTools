@@ -27,7 +27,7 @@ public abstract class FileStorage {
 
     final JSONArray read(String fileName, String arrayName) throws IOException, JSONException {
         String inputString = mReader.read(fileName, CHARSET);
-        if(!inputString.isEmpty()) {
+        if (!inputString.isEmpty()) {
             JSONObject inputsJson = new JSONObject(inputString);
             return inputsJson.getJSONArray(arrayName);
         }
@@ -36,6 +36,7 @@ public abstract class FileStorage {
     }
 
     public abstract void read() throws JSONException, IOException, DuplicatedEntryException, EntryCreationFailed;
+
     public abstract void write() throws JSONException, IOException;
 
     private final FileReader mReader;

@@ -1,9 +1,5 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects.actions;
 
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.activities.named.objects.NamedObjectActivity;
 import android.microntek.f1x.mtcdtools.adapters.InstalledPackagesArrayAdapter;
@@ -12,6 +8,9 @@ import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
 import android.microntek.f1x.mtcdtools.named.objects.actions.LaunchAction;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 public class LaunchActionActivity extends NamedObjectActivity {
     public LaunchActionActivity() {
@@ -22,7 +21,7 @@ public class LaunchActionActivity extends NamedObjectActivity {
     protected void initControls() {
         super.initControls();
 
-        mInstalledPackagesSpinner = (Spinner)this.findViewById(R.id.spinnerApplications);
+        mInstalledPackagesSpinner = (Spinner) this.findViewById(R.id.spinnerApplications);
         mInstalledPackagesArrayAdapter = new InstalledPackagesArrayAdapter(this);
         mInstalledPackagesSpinner.setAdapter(mInstalledPackagesArrayAdapter);
 
@@ -42,7 +41,7 @@ public class LaunchActionActivity extends NamedObjectActivity {
 
     @Override
     protected Action createNamedObject(NamedObjectId namedObjectId) {
-        PackageEntry packageEntry = (PackageEntry)mInstalledPackagesSpinner.getSelectedItem();
+        PackageEntry packageEntry = (PackageEntry) mInstalledPackagesSpinner.getSelectedItem();
         return new LaunchAction(namedObjectId, packageEntry.getName());
     }
 

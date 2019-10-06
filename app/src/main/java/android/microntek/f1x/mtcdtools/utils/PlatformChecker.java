@@ -11,9 +11,9 @@ public class PlatformChecker {
     public static boolean isPX5Platform() {
         try {
             Class localClass = Class.forName("android.os.ServiceManager");
-            Method getService = localClass.getMethod("getService", new Class[] {String.class});
+            Method getService = localClass.getMethod("getService", new Class[]{String.class});
 
-            if(getService != null) {
+            if (getService != null) {
                 return getService.invoke(localClass, new Object[]{"carservice"}) != null;
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {

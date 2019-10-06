@@ -1,16 +1,15 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects;
 
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.named.NamedObject;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.named.NamedObject;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
-import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 
 import org.json.JSONException;
 
@@ -38,7 +37,7 @@ public abstract class NamedObjectActivity extends ServiceActivity {
 
     @Override
     protected void onServiceConnected() {
-        if(mEditMode) {
+        if (mEditMode) {
             NamedObject namedObject = mServiceBinder.getNamedObjectsStorage().getItem(mEditNamedObjectId);
 
             if (namedObject == null) {
@@ -49,7 +48,7 @@ public abstract class NamedObjectActivity extends ServiceActivity {
 
             try {
                 fillControls(namedObject);
-            } catch(ClassCastException e) {
+            } catch (ClassCastException e) {
                 e.printStackTrace();
                 Toast.makeText(this, this.getText(R.string.UnknownObjectType), Toast.LENGTH_LONG).show();
                 finish();
@@ -58,7 +57,7 @@ public abstract class NamedObjectActivity extends ServiceActivity {
     }
 
     protected void initControls() {
-        Button cancelButton = (Button)this.findViewById(R.id.buttonCancel);
+        Button cancelButton = (Button) this.findViewById(R.id.buttonCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,13 +65,13 @@ public abstract class NamedObjectActivity extends ServiceActivity {
             }
         });
 
-        Button saveButton = (Button)this.findViewById(R.id.buttonSave);
+        Button saveButton = (Button) this.findViewById(R.id.buttonSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String namedObjectName = mNameEditText.getText().toString();
 
-                if(namedObjectName.isEmpty()) {
+                if (namedObjectName.isEmpty()) {
                     Toast.makeText(NamedObjectActivity.this, NamedObjectActivity.this.getText(R.string.EmptyNameError), Toast.LENGTH_LONG).show();
                 } else {
                     storeNamedObject(new NamedObjectId(namedObjectName));
@@ -80,7 +79,7 @@ public abstract class NamedObjectActivity extends ServiceActivity {
             }
         });
 
-        mNameEditText = (EditText)this.findViewById(R.id.editTextNamedObjectName);
+        mNameEditText = (EditText) this.findViewById(R.id.editTextNamedObjectName);
     }
 
     protected void fillControls(NamedObject namedObject) throws ClassCastException {
@@ -91,8 +90,8 @@ public abstract class NamedObjectActivity extends ServiceActivity {
         try {
             NamedObject namedObject = createNamedObject(namedObjectId);
 
-            if(namedObject != null) {
-                if(mEditMode) {
+            if (namedObject != null) {
+                if (mEditMode) {
                     mServiceBinder.getNamedObjectsStorage().replace(mEditNamedObjectId, namedObjectId, namedObject);
                     mServiceBinder.getKeysSequenceBindingsStorage().replaceTarget(mEditNamedObjectId, namedObjectId);
                 } else {

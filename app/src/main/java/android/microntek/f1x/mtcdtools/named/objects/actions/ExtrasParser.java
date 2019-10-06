@@ -16,20 +16,20 @@ public class ExtrasParser {
         Bundle bundle = new Bundle();
         Iterator<?> keys = json.keys();
 
-        while(keys.hasNext()) {
-            String key = (String)keys.next();
+        while (keys.hasNext()) {
+            String key = (String) keys.next();
             Object value = json.get(key);
 
-            if(value instanceof Integer) {
-                bundle.putInt(key, (int)value);
-            } else if(value instanceof Long) {
-                bundle.putLong(key, (long)value);
-            } else if(value instanceof Double) {
-                bundle.putDouble(key, (double)value);
-            } else if(value instanceof Boolean) {
-                bundle.putBoolean(key, (boolean)value);
+            if (value instanceof Integer) {
+                bundle.putInt(key, (int) value);
+            } else if (value instanceof Long) {
+                bundle.putLong(key, (long) value);
+            } else if (value instanceof Double) {
+                bundle.putDouble(key, (double) value);
+            } else if (value instanceof Boolean) {
+                bundle.putBoolean(key, (boolean) value);
             } else {
-                bundle.putString(key, (String)value);
+                bundle.putString(key, (String) value);
             }
         }
 

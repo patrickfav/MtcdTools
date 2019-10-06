@@ -1,10 +1,9 @@
 package android.microntek.f1x.mtcdtools.adapters;
 
 import android.content.Context;
+import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.widget.ArrayAdapter;
-
-import android.microntek.f1x.mtcdtools.named.NamedObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,8 @@ public class NamedObjectIdsArrayAdapter extends ArrayAdapter<NamedObjectId> {
     public void reset(Map<NamedObjectId, NamedObject> items) {
         clear();
 
-        for(Map.Entry<NamedObjectId, NamedObject> entry : items.entrySet()) {
-            if(mObjectTypeFilters.isEmpty() || mObjectTypeFilters.contains(entry.getValue().getObjectType())) {
+        for (Map.Entry<NamedObjectId, NamedObject> entry : items.entrySet()) {
+            if (mObjectTypeFilters.isEmpty() || mObjectTypeFilters.contains(entry.getValue().getObjectType())) {
                 add(entry.getKey());
             }
         }
@@ -50,7 +49,7 @@ public class NamedObjectIdsArrayAdapter extends ArrayAdapter<NamedObjectId> {
     public List<NamedObjectId> getItems() {
         List<NamedObjectId> items = new ArrayList<>();
 
-        for(int i = 0; i < getCount(); ++i) {
+        for (int i = 0; i < getCount(); ++i) {
             items.add(getItem(i));
         }
 
@@ -58,10 +57,10 @@ public class NamedObjectIdsArrayAdapter extends ArrayAdapter<NamedObjectId> {
     }
 
     public void removeAt(int position) {
-        if(position != -1 && position < getCount()) {
+        if (position != -1 && position < getCount()) {
             List<NamedObjectId> items = new ArrayList<>();
 
-            for(int i = 0; i < getCount(); ++i) {
+            for (int i = 0; i < getCount(); ++i) {
                 items.add(getItem(i));
             }
 

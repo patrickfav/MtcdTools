@@ -1,7 +1,6 @@
 package android.microntek.f1x.mtcdtools.service.dispatching;
 
 import android.content.Context;
-
 import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
 import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
 import android.microntek.f1x.mtcdtools.service.storage.KeysSequenceBindingsStorage;
@@ -24,10 +23,10 @@ public class KeysSequenceDispatcher implements KeysSequenceListener {
     public void handleKeysSequence(List<Integer> keysSequence) {
         KeysSequenceBinding keysSequenceBinding = mKeysSequenceBindingsStorage.getItem(keysSequence);
 
-        if(keysSequenceBinding != null) {
+        if (keysSequenceBinding != null) {
             mNamedObjectDispatcher.dispatch(keysSequenceBinding.getTargetId(), mContext);
 
-            if(keysSequenceBinding.playIndication()) {
+            if (keysSequenceBinding.playIndication()) {
                 mDispatchingIndicationPlayer.play();
             }
         }

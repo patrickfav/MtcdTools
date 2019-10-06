@@ -1,7 +1,6 @@
 package android.microntek.f1x.mtcdtools.named.objects.actions;
 
 import android.content.Context;
-
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 
@@ -24,10 +23,12 @@ public abstract class Action extends NamedObject {
     public abstract void evaluate(Context context);
 
     @Override
-    public void removeDependency(NamedObjectId id) {}
+    public void removeDependency(NamedObjectId id) {
+    }
 
     @Override
-    public void replaceDependency(NamedObjectId oldId, NamedObjectId newId) {}
+    public void replaceDependency(NamedObjectId oldId, NamedObjectId newId) {
+    }
 
     public static boolean isAction(String objectType) {
         return objectType.equals(KeyAction.OBJECT_TYPE) ||

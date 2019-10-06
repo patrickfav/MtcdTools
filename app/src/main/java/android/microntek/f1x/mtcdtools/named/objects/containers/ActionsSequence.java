@@ -45,10 +45,10 @@ public class ActionsSequence extends NamedObjectsContainer {
 
         Iterator<Map.Entry<NamedObjectId, Integer>> iterator = mDelays.iterator();
 
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             Map.Entry<NamedObjectId, Integer> entry = iterator.next();
 
-            if(entry.getKey().equals(id)) {
+            if (entry.getKey().equals(id)) {
                 iterator.remove();
             }
         }
@@ -58,10 +58,10 @@ public class ActionsSequence extends NamedObjectsContainer {
     public void replaceDependency(NamedObjectId oldId, NamedObjectId newId) {
         super.replaceDependency(oldId, newId);
 
-        for(int i = 0; i < mDelays.size(); ++i) {
+        for (int i = 0; i < mDelays.size(); ++i) {
             Map.Entry<NamedObjectId, Integer> entry = mDelays.get(i);
 
-            if(entry.getKey().equals(oldId)) {
+            if (entry.getKey().equals(oldId)) {
                 mDelays.set(i, new AbstractMap.SimpleEntry<>(newId, entry.getValue()));
             }
         }
@@ -72,7 +72,7 @@ public class ActionsSequence extends NamedObjectsContainer {
         JSONObject json = super.toJson();
         JSONArray delaysArray = new JSONArray();
 
-        for(int i = 0; i < mDelays.size(); ++i) {
+        for (int i = 0; i < mDelays.size(); ++i) {
             Map.Entry<NamedObjectId, Integer> entry = mDelays.get(i);
             JSONObject delayJson = new JSONObject();
 

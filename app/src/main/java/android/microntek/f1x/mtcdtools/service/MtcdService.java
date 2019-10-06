@@ -1,22 +1,21 @@
 package android.microntek.f1x.mtcdtools.service;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
-import android.widget.Toast;
-
+import android.graphics.Color;
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
 import android.microntek.f1x.mtcdtools.service.dispatching.DispatchingIndicationPlayer;
 import android.microntek.f1x.mtcdtools.service.dispatching.KeysSequenceDispatcher;
+import android.microntek.f1x.mtcdtools.service.dispatching.NamedObjectDispatcher;
 import android.microntek.f1x.mtcdtools.service.input.PX3PressedKeysSequenceManager;
 import android.microntek.f1x.mtcdtools.service.input.PX5PressedKeysSequenceManager;
 import android.microntek.f1x.mtcdtools.service.input.PressedKeysSequenceManager;
-import android.microntek.f1x.mtcdtools.service.dispatching.NamedObjectDispatcher;
 import android.microntek.f1x.mtcdtools.service.storage.AutorunStorage;
 import android.microntek.f1x.mtcdtools.service.storage.FileReader;
 import android.microntek.f1x.mtcdtools.service.storage.FileWriter;
@@ -25,6 +24,11 @@ import android.microntek.f1x.mtcdtools.service.storage.NamedObjectsStorage;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.EntryCreationFailed;
 import android.microntek.f1x.mtcdtools.utils.PlatformChecker;
+import android.os.Build;
+import android.os.IBinder;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -56,11 +60,11 @@ public class MtcdService extends android.app.Service {
     public void onDestroy() {
         super.onDestroy();
 
-        if(mForceRestart) {
+        if (mForceRestart) {
             MtcdServiceWatchdog.scheduleServiceRestart(this);
         }
 
-        if(mServiceInitialized) {
+        if (mServiceInitialized) {
             unregisterReceiver(mScreenOnBroadcastReceiver);
             mPressedKeysSequenceManager.destroy();
             mServiceInitialized = false;
@@ -78,7 +82,7 @@ public class MtcdService extends android.app.Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
-        if(mServiceInitialized) {
+        if (mServiceInitialized) {
             return START_STICKY;
         }
 
@@ -94,7 +98,7 @@ public class MtcdService extends android.app.Service {
             mForceRestart = true;
             mServiceInitialized = true;
 
-            if(ACTION_AUTORUN.equals(intent.getAction())) {
+            if (ACTION_AUTORUN.equals(intent.getAction())) {
                 mNamedObjectsDispatcher.dispatch(mAutorunStorage.getItems(), this);
             }
         } catch (JSONException | IOException | DuplicatedEntryException | EntryCreationFailed e) {
@@ -106,12 +110,29 @@ public class MtcdService extends android.app.Service {
     }
 
     private Notification createNotification() {
-        return new NotificationCompat.Builder(this)
+        String channelId = "";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            channelId = createNotificationChannel("general_notif", "General Notifications");
+        }
+
+        return new NotificationCompat.Builder(this, channelId)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.MtcdServiceDescription))
                 .setSmallIcon(R.drawable.service_notification_icon)
                 .setOngoing(true)
                 .build();
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private String createNotificationChannel(String channelId, String channelName) {
+        NotificationChannel chan = new NotificationChannel(channelId,
+                channelName, NotificationManager.IMPORTANCE_NONE);
+
+        chan.setLightColor(Color.BLUE);
+        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
+        NotificationManager service = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        service.createNotificationChannel(chan);
+        return channelId;
     }
 
     private boolean mForceRestart;
@@ -159,7 +180,7 @@ public class MtcdService extends android.app.Service {
     private final BroadcastReceiver mScreenOnBroadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
+            if (Intent.ACTION_SCREEN_ON.equals(intent.getAction())) {
                 mNamedObjectsDispatcher.dispatch(mAutorunStorage.getItems(), MtcdService.this);
             }
         }

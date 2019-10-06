@@ -2,7 +2,6 @@ package android.microntek.f1x.mtcdtools.adapters;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-
 import android.microntek.f1x.mtcdtools.adapters.entries.PackageEntry;
 
 import java.util.Comparator;
@@ -14,10 +13,10 @@ public class InstalledPackagesArrayAdapter extends PackagesArrayAdapter {
     public InstalledPackagesArrayAdapter(Context context) {
         super(context);
 
-        for(ApplicationInfo applicationInfo : mPackageManager.getInstalledApplications(0)) {
+        for (ApplicationInfo applicationInfo : mPackageManager.getInstalledApplications(0)) {
             PackageEntry packageEntry = getPackageEntry(applicationInfo.packageName);
 
-            if(packageEntry != null) {
+            if (packageEntry != null) {
                 add(packageEntry);
             }
         }
@@ -31,9 +30,9 @@ public class InstalledPackagesArrayAdapter extends PackagesArrayAdapter {
     }
 
     public int getPosition(String packageName) {
-        for(int i = 0; i < getCount(); ++i) {
+        for (int i = 0; i < getCount(); ++i) {
             PackageEntry packageEntry = getItem(i);
-            if(packageEntry != null && packageEntry.getName().equals(packageName)) {
+            if (packageEntry != null && packageEntry.getName().equals(packageName)) {
                 return i;
             }
         }

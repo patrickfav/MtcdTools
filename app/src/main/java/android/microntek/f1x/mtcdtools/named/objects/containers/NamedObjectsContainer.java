@@ -55,7 +55,7 @@ public class NamedObjectsContainer extends NamedObject {
 
     @Override
     public void replaceDependency(NamedObjectId oldId, NamedObjectId newId) {
-        if(mActionIds.contains(oldId)) {
+        if (mActionIds.contains(oldId)) {
             int index = mActionIds.indexOf(oldId);
             mActionIds.set(index, newId);
         }

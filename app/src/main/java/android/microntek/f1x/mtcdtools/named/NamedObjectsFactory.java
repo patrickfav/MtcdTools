@@ -1,6 +1,5 @@
 package android.microntek.f1x.mtcdtools.named;
 
-import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
 import android.microntek.f1x.mtcdtools.named.objects.actions.BroadcastIntentAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.KeyAction;
@@ -21,7 +20,7 @@ public class NamedObjectsFactory {
     public static NamedObject createNamedObject(JSONObject json) throws JSONException {
         String actionType = json.getString(Action.OBJECT_TYPE_PROPERTY);
 
-        switch(actionType) {
+        switch (actionType) {
             case KeyAction.OBJECT_TYPE:
                 return new KeyAction(json);
             case LaunchAction.OBJECT_TYPE:

@@ -18,7 +18,7 @@ public class KeysSequenceArrayAdapter extends ArrayAdapter<Integer> {
     public void reset(List<Integer> keysSequence) {
         clear();
 
-        for(int i = 0; i < keysSequence.size(); ++i) {
+        for (int i = 0; i < keysSequence.size(); ++i) {
             add(keysSequence.get(i));
         }
     }
@@ -26,7 +26,7 @@ public class KeysSequenceArrayAdapter extends ArrayAdapter<Integer> {
     public List<Integer> getItems() {
         List<Integer> items = new ArrayList<>();
 
-        for(int i = 0; i < getCount(); ++i) {
+        for (int i = 0; i < getCount(); ++i) {
             items.add(getItem(i));
         }
 

@@ -44,10 +44,10 @@ public class CarManager {
     private static IBinder getCarService() {
         try {
             Class localClass = Class.forName("android.os.ServiceManager");
-            Method getService = localClass.getMethod("getService", new Class[] {String.class});
+            Method getService = localClass.getMethod("getService", new Class[]{String.class});
 
-            if(getService != null) {
-                return (IBinder)getService.invoke(localClass, new Object[]{"carservice"});
+            if (getService != null) {
+                return (IBinder) getService.invoke(localClass, new Object[]{"carservice"});
             }
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

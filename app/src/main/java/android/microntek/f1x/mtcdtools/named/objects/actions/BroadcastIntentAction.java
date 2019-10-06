@@ -1,9 +1,8 @@
 package android.microntek.f1x.mtcdtools.named.objects.actions;
 
 import android.content.Context;
-import android.widget.Toast;
-
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,8 +32,7 @@ public class BroadcastIntentAction extends CustomIntentAction {
             } else {
                 context.sendOrderedBroadcast(getIntent(), mPermissions);
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         }

@@ -4,14 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-
 import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
 
 /**
  * Created by COMPUTER on 2017-06-19.
  */
 
-public class PX3PressedKeysSequenceManager extends PressedKeysSequenceManager  {
+public class PX3PressedKeysSequenceManager extends PressedKeysSequenceManager {
     public PX3PressedKeysSequenceManager(Configuration configuration, Context context) {
         super(configuration);
         mContext = context;
@@ -31,10 +30,10 @@ public class PX3PressedKeysSequenceManager extends PressedKeysSequenceManager  {
     private final BroadcastReceiver mPressedKeysReceived = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals(KEY_DOWN_ACTION_NAME)) {
+            if (intent.getAction().equals(KEY_DOWN_ACTION_NAME)) {
                 int keyCode = intent.getIntExtra(KEYCODE_PARAM_NAME, DEFAULT_KEY_CODE);
 
-                if(keyCode != DEFAULT_KEY_CODE) {
+                if (keyCode != DEFAULT_KEY_CODE) {
                     insertKeyCode(keyCode);
                 }
             }

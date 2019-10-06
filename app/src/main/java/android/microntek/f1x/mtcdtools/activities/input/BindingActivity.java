@@ -1,6 +1,14 @@
 package android.microntek.f1x.mtcdtools.activities.input;
 
 import android.content.Intent;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.adapters.KeysSequenceArrayAdapter;
+import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
+import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
+import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,15 +16,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.adapters.KeysSequenceArrayAdapter;
-import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
-import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
-import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,7 +33,7 @@ public class BindingActivity extends ServiceActivity {
         String keysSequenceString = this.getIntent().getStringExtra(KEYS_SEQUENCE_NAME_PARAMETER);
         mEditMode = keysSequenceString != null;
 
-        if(mEditMode) {
+        if (mEditMode) {
             try {
                 mEditKeysSequence = KeysSequenceConverter.fromJsonArray(new JSONArray(keysSequenceString));
             } catch (JSONException e) {
@@ -45,15 +44,15 @@ public class BindingActivity extends ServiceActivity {
             }
         }
 
-        mNamesSpinner = (Spinner)this.findViewById(R.id.spinnerNames);
+        mNamesSpinner = (Spinner) this.findViewById(R.id.spinnerNames);
         mNamedObjectIdsArrayAdapter = new NamedObjectIdsArrayAdapter(this);
         mNamesSpinner.setAdapter(mNamedObjectIdsArrayAdapter);
 
-        ListView keysSequenceListView = (ListView)this.findViewById(R.id.listViewKeysSequence);
+        ListView keysSequenceListView = (ListView) this.findViewById(R.id.listViewKeysSequence);
         mKeysSequenceArrayAdapter = new KeysSequenceArrayAdapter(this);
         keysSequenceListView.setAdapter(mKeysSequenceArrayAdapter);
 
-        Button cancelButton = (Button)this.findViewById(R.id.buttonCancel);
+        Button cancelButton = (Button) this.findViewById(R.id.buttonCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +60,7 @@ public class BindingActivity extends ServiceActivity {
             }
         });
 
-        Button saveButton = (Button)this.findViewById(R.id.buttonSave);
+        Button saveButton = (Button) this.findViewById(R.id.buttonSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,7 +68,7 @@ public class BindingActivity extends ServiceActivity {
             }
         });
 
-        Button obtainKeysSequenceButton = (Button)this.findViewById(R.id.buttonObtainKeysSequence);
+        Button obtainKeysSequenceButton = (Button) this.findViewById(R.id.buttonObtainKeysSequence);
         obtainKeysSequenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,21 +76,21 @@ public class BindingActivity extends ServiceActivity {
             }
         });
 
-        mIndicatePressSwitch = (Switch)this.findViewById(R.id.indicatePressSwitch);
+        mIndicatePressSwitch = (Switch) this.findViewById(R.id.indicatePressSwitch);
     }
 
     private void storeKeysSequenceBinding() {
         List<Integer> keysSequence = mKeysSequenceArrayAdapter.getItems();
 
-        if(keysSequence.isEmpty()) {
+        if (keysSequence.isEmpty()) {
             Toast.makeText(this, this.getText(R.string.ProvideKeysSequence), Toast.LENGTH_LONG).show();
             return;
         }
 
         try {
-            KeysSequenceBinding keysSequenceBinding = new KeysSequenceBinding(keysSequence, (NamedObjectId)mNamesSpinner.getSelectedItem(), mIndicatePressSwitch.isChecked());
+            KeysSequenceBinding keysSequenceBinding = new KeysSequenceBinding(keysSequence, (NamedObjectId) mNamesSpinner.getSelectedItem(), mIndicatePressSwitch.isChecked());
 
-            if(mEditMode) {
+            if (mEditMode) {
                 mServiceBinder.getKeysSequenceBindingsStorage().replace(mEditKeysSequence, keysSequence, keysSequenceBinding);
             } else {
                 mServiceBinder.getKeysSequenceBindingsStorage().insert(keysSequence, keysSequenceBinding);
@@ -111,10 +110,10 @@ public class BindingActivity extends ServiceActivity {
     protected void onServiceConnected() {
         KeysSequenceBinding binding = null;
 
-        if(mEditMode) {
+        if (mEditMode) {
             binding = mServiceBinder.getKeysSequenceBindingsStorage().getItem(mEditKeysSequence);
 
-            if(binding != null) {
+            if (binding != null) {
                 mKeysSequenceArrayAdapter.reset(binding.getKeysSequence());
                 mIndicatePressSwitch.setChecked(binding.playIndication());
             } else {
@@ -126,14 +125,14 @@ public class BindingActivity extends ServiceActivity {
 
         mNamedObjectIdsArrayAdapter.reset(mServiceBinder.getNamedObjectsStorage().getItems());
 
-        if(binding != null) {
+        if (binding != null) {
             mNamesSpinner.setSelection(mNamedObjectIdsArrayAdapter.getPosition(binding.getTargetId()));
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
 

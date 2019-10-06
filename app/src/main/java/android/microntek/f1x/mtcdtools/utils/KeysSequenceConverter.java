@@ -14,7 +14,7 @@ public class KeysSequenceConverter {
     public static JSONArray toJsonArray(List<Integer> keysSequence) {
         JSONArray jsonArray = new JSONArray();
 
-        for(int i = 0; i < keysSequence.size(); ++i) {
+        for (int i = 0; i < keysSequence.size(); ++i) {
             jsonArray.put(keysSequence.get(i));
         }
 
@@ -24,7 +24,7 @@ public class KeysSequenceConverter {
     public static List<Integer> fromJsonArray(JSONArray array) throws JSONException {
         List<Integer> keysSequence = new ArrayList<>();
 
-        for(int i = 0; i < array.length(); ++i) {
+        for (int i = 0; i < array.length(); ++i) {
             keysSequence.add(array.getInt(i));
         }
 
@@ -34,7 +34,7 @@ public class KeysSequenceConverter {
     public static List<Integer> fromArray(int array[]) {
         List<Integer> keysSequence = new ArrayList<>();
 
-        for(Integer value : array) {
+        for (Integer value : array) {
             keysSequence.add(value);
         }
 

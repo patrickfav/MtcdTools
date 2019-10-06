@@ -1,7 +1,7 @@
 package android.microntek.f1x.mtcdtools.service.storage;
 
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.EntryCreationFailed;
 
@@ -36,7 +36,7 @@ public class KeysSequenceBindingsStorage extends UniqueObjectsStorage<List<Integ
     @Override
     public void write() throws JSONException, IOException {
         JSONArray keysSequenceBindingsArray = new JSONArray();
-        for(Map.Entry<List<Integer>, KeysSequenceBinding> entry : mItems.entrySet()) {
+        for (Map.Entry<List<Integer>, KeysSequenceBinding> entry : mItems.entrySet()) {
             keysSequenceBindingsArray.put(entry.getValue().toJson());
         }
 
@@ -46,11 +46,11 @@ public class KeysSequenceBindingsStorage extends UniqueObjectsStorage<List<Integ
     public void removeBindingWithTarget(NamedObjectId targetId) throws IOException, JSONException {
         Iterator<Map.Entry<List<Integer>, KeysSequenceBinding>> iter = mItems.entrySet().iterator();
 
-        while(iter.hasNext()) {
+        while (iter.hasNext()) {
             Map.Entry<List<Integer>, KeysSequenceBinding> entry = iter.next();
 
             KeysSequenceBinding keysSequenceBinding = entry.getValue();
-            if(keysSequenceBinding.getTargetId().equals(targetId)) {
+            if (keysSequenceBinding.getTargetId().equals(targetId)) {
                 iter.remove();
             }
         }
@@ -59,10 +59,10 @@ public class KeysSequenceBindingsStorage extends UniqueObjectsStorage<List<Integ
     }
 
     public void replaceTarget(NamedObjectId oldId, NamedObjectId newId) throws IOException, JSONException {
-        for(Map.Entry<List<Integer>, KeysSequenceBinding> entry : mItems.entrySet()) {
+        for (Map.Entry<List<Integer>, KeysSequenceBinding> entry : mItems.entrySet()) {
             KeysSequenceBinding keysSequenceBinding = entry.getValue();
 
-            if(keysSequenceBinding.getTargetId().equals(oldId)) {
+            if (keysSequenceBinding.getTargetId().equals(oldId)) {
                 keysSequenceBinding.setTargetId(newId);
             }
         }

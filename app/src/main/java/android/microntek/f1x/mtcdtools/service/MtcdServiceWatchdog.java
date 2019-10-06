@@ -17,7 +17,7 @@ class MtcdServiceWatchdog {
         restartServiceIntent.setPackage(context.getPackageName());
 
         PendingIntent restartServicePendingIntent = PendingIntent.getService(context, 1555, restartServiceIntent, PendingIntent.FLAG_ONE_SHOT);
-        AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + SERVICE_RESTART_DELAY_MS, restartServicePendingIntent);
     }
 

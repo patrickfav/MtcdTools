@@ -34,7 +34,7 @@ public class AutorunStorage extends FileStorage {
     public void write() throws JSONException, IOException {
         JSONArray namedObjectIdsArray = new JSONArray();
 
-        for(NamedObjectId item : mItems) {
+        for (NamedObjectId item : mItems) {
             namedObjectIdsArray.put(item.toString());
         }
 
@@ -47,7 +47,7 @@ public class AutorunStorage extends FileStorage {
     }
 
     public void remove(NamedObjectId id) throws IOException, JSONException {
-        if(mItems.contains(id)) {
+        if (mItems.contains(id)) {
             mItems.remove(id);
             write();
         }

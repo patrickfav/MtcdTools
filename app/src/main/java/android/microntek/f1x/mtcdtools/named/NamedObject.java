@@ -35,6 +35,7 @@ public abstract class NamedObject {
     }
 
     public abstract void removeDependency(NamedObjectId dependencyId);
+
     public abstract void replaceDependency(NamedObjectId oldDependencyId, NamedObjectId newDependencyId);
 
     private NamedObjectId mId;

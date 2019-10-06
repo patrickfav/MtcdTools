@@ -24,10 +24,10 @@ public class NamedObjectId implements Parcelable {
     }
 
     @Override
-    public boolean equals(Object other){
+    public boolean equals(Object other) {
         if (other == null) return false;
         if (other == this) return true;
-        return (other instanceof NamedObjectId) && mHashCode == ((NamedObjectId)other).mHashCode;
+        return (other instanceof NamedObjectId) && mHashCode == ((NamedObjectId) other).mHashCode;
     }
 
     @Override

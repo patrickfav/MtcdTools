@@ -1,20 +1,19 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects;
 
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.adapters.ActionsInSequenceArrayAdapter;
 import android.microntek.f1x.mtcdtools.adapters.entries.ActionInSequenceEntry;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.BroadcastIntentAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.KeyAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.LaunchAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class ActionsSequenceActivity extends NamedObjectsContainerActivity {
         mNamedObjectIdsArrayAdapter.setObjectTypeFilters(new TreeSet<>(Arrays.asList(KeyAction.OBJECT_TYPE, LaunchAction.OBJECT_TYPE, BroadcastIntentAction.OBJECT_TYPE, StartIntentAction.OBJECT_TYPE)));
         mActionsInSequenceArrayAdapter = new ActionsInSequenceArrayAdapter(this);
 
-        ListView addedActionsListView = (ListView)this.findViewById(R.id.listViewAddedNamedObjects);
+        ListView addedActionsListView = (ListView) this.findViewById(R.id.listViewAddedNamedObjects);
         addedActionsListView.setAdapter(mActionsInSequenceArrayAdapter);
         addedActionsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -49,11 +48,11 @@ public class ActionsSequenceActivity extends NamedObjectsContainerActivity {
             }
         });
 
-        Button addNamedObjectButton = (Button)this.findViewById(R.id.buttonAddNamedObject);
+        Button addNamedObjectButton = (Button) this.findViewById(R.id.buttonAddNamedObject);
         addNamedObjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NamedObjectId actionId = (NamedObjectId)mNamedObjectsSpinner.getSelectedItem();
+                NamedObjectId actionId = (NamedObjectId) mNamedObjectsSpinner.getSelectedItem();
                 ActionInSequenceEntry actionInSequenceEntry = new ActionInSequenceEntry(actionId, 0);
                 mActionsInSequenceArrayAdapter.add(actionInSequenceEntry);
             }
@@ -63,22 +62,22 @@ public class ActionsSequenceActivity extends NamedObjectsContainerActivity {
     @Override
     protected void fillControls(NamedObject namedObject) {
         super.fillControls(namedObject);
-        if(namedObject.getObjectType().equals(ActionsSequence.OBJECT_TYPE)) {
-            ActionsSequence actionsSequence = (ActionsSequence)namedObject;
+        if (namedObject.getObjectType().equals(ActionsSequence.OBJECT_TYPE)) {
+            ActionsSequence actionsSequence = (ActionsSequence) namedObject;
             mActionsInSequenceArrayAdapter.reset(actionsSequence.getActionDelays());
         }
     }
 
-     @Override
+    @Override
     protected NamedObject createNamedObject(NamedObjectId namedObjectId) {
-         List<NamedObjectId> actionNames = new ArrayList<>();
-         List<Map.Entry<NamedObjectId, Integer>> actionDelays = new ArrayList<>();
+        List<NamedObjectId> actionNames = new ArrayList<>();
+        List<Map.Entry<NamedObjectId, Integer>> actionDelays = new ArrayList<>();
 
-         for(int i = 0; i < mActionsInSequenceArrayAdapter.getCount(); ++i) {
-             ActionInSequenceEntry actionInSequenceEntry = mActionsInSequenceArrayAdapter.getItem(i);
-             actionNames.add(actionInSequenceEntry.getActionId());
-             actionDelays.add(new AbstractMap.SimpleEntry<>(actionInSequenceEntry.getActionId(), actionInSequenceEntry.getDelay()));
-         }
+        for (int i = 0; i < mActionsInSequenceArrayAdapter.getCount(); ++i) {
+            ActionInSequenceEntry actionInSequenceEntry = mActionsInSequenceArrayAdapter.getItem(i);
+            actionNames.add(actionInSequenceEntry.getActionId());
+            actionDelays.add(new AbstractMap.SimpleEntry<>(actionInSequenceEntry.getActionId(), actionInSequenceEntry.getDelay()));
+        }
 
         return new ActionsSequence(namedObjectId, actionNames, actionDelays);
     }

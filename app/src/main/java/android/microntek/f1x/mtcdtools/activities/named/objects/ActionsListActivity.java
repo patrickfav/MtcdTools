@@ -1,25 +1,24 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects;
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TabHost;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.activities.input.ObtainKeysSequenceActivity;
 import android.microntek.f1x.mtcdtools.adapters.KeysSequenceArrayAdapter;
 import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
-import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.BroadcastIntentAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.KeyAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.LaunchAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
+import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TabHost;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
         mNamedObjectIdsArrayAdapter.setObjectTypeFilters(new TreeSet<>(Arrays.asList(ActionsSequence.OBJECT_TYPE, KeyAction.OBJECT_TYPE, LaunchAction.OBJECT_TYPE, BroadcastIntentAction.OBJECT_TYPE, StartIntentAction.OBJECT_TYPE)));
 
         // -----------------------------------------------------------------------------------------
-        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+        TabHost tabHost = (TabHost) findViewById(R.id.tabHost);
         tabHost.setup();
 
         TabHost.TabSpec addActionsTab = tabHost.newTabSpec(this.getString(R.string.Objects));
@@ -67,10 +66,10 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
 
         // -----------------------------------------------------------------------------------------
         mKeysSequenceUpArrayAdapter = new KeysSequenceArrayAdapter(this);
-        ListView keysSequenceUpListView = (ListView)this.findViewById(R.id.listViewKeysSequenceUp);
+        ListView keysSequenceUpListView = (ListView) this.findViewById(R.id.listViewKeysSequenceUp);
         keysSequenceUpListView.setAdapter(mKeysSequenceUpArrayAdapter);
 
-        Button obtainKeysSequenceUpButton = (Button)this.findViewById(R.id.buttonObtainKeysSequenceUp);
+        Button obtainKeysSequenceUpButton = (Button) this.findViewById(R.id.buttonObtainKeysSequenceUp);
         obtainKeysSequenceUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,10 +80,10 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
 
         // -----------------------------------------------------------------------------------------
         mKeysSequenceDownArrayAdapter = new KeysSequenceArrayAdapter(this);
-        ListView keysSequenceDownListView = (ListView)this.findViewById(R.id.listViewKeysSequenceDown);
+        ListView keysSequenceDownListView = (ListView) this.findViewById(R.id.listViewKeysSequenceDown);
         keysSequenceDownListView.setAdapter(mKeysSequenceDownArrayAdapter);
 
-        Button obtainKeysSequenceDownButton = (Button)this.findViewById(R.id.buttonObtainKeysSequenceDown);
+        Button obtainKeysSequenceDownButton = (Button) this.findViewById(R.id.buttonObtainKeysSequenceDown);
         obtainKeysSequenceDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +93,7 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
         // -----------------------------------------------------------------------------------------
 
         // -----------------------------------------------------------------------------------------
-        ListView addedActionsListView = (ListView)this.findViewById(R.id.listViewAddedNamedObjects);
+        ListView addedActionsListView = (ListView) this.findViewById(R.id.listViewAddedNamedObjects);
         mAddedNamedObjectIdsArrayAdapter = new NamedObjectIdsArrayAdapter(this);
         addedActionsListView.setAdapter(mAddedNamedObjectIdsArrayAdapter);
         addedActionsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -106,11 +105,11 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
             }
         });
 
-        Button addNamedObjectButton = (Button)this.findViewById(R.id.buttonAddNamedObject);
+        Button addNamedObjectButton = (Button) this.findViewById(R.id.buttonAddNamedObject);
         addNamedObjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAddedNamedObjectIdsArrayAdapter.add((NamedObjectId)mNamedObjectsSpinner.getSelectedItem());
+                mAddedNamedObjectIdsArrayAdapter.add((NamedObjectId) mNamedObjectsSpinner.getSelectedItem());
             }
         });
         // -----------------------------------------------------------------------------------------
@@ -120,8 +119,8 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
     protected void fillControls(NamedObject namedObject) throws ClassCastException {
         super.fillControls(namedObject);
 
-        if(namedObject.getObjectType().equals(ActionsList.OBJECT_TYPE)) {
-            ActionsList actionsList = (ActionsList)namedObject;
+        if (namedObject.getObjectType().equals(ActionsList.OBJECT_TYPE)) {
+            ActionsList actionsList = (ActionsList) namedObject;
 
             mKeysSequenceDownArrayAdapter.reset(actionsList.getKeysSequenceDown());
             mKeysSequenceUpArrayAdapter.reset(actionsList.getKeysSequenceUp());
@@ -140,15 +139,15 @@ public class ActionsListActivity extends NamedObjectsContainerActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
 
         List<Integer> keysSequence = KeysSequenceConverter.fromArray(data.getIntArrayExtra(ObtainKeysSequenceActivity.RESULT_NAME));
 
-        if(requestCode == REQUEST_CODE_KEYS_SEQUENCE_UP) {
+        if (requestCode == REQUEST_CODE_KEYS_SEQUENCE_UP) {
             mKeysSequenceUpArrayAdapter.reset(keysSequence);
-        } else if(requestCode == REQUEST_CODE_KEYS_SEQUENCE_DOWN) {
+        } else if (requestCode == REQUEST_CODE_KEYS_SEQUENCE_DOWN) {
             mKeysSequenceDownArrayAdapter.reset(keysSequence);
         }
     }

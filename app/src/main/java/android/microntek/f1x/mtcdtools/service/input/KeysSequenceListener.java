@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface KeysSequenceListener {
     void handleKeysSequence(List<Integer> keysSequence);
+
     void handleSingleKey(int keyCode);
 }

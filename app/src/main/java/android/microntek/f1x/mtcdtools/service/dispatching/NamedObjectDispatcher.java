@@ -2,16 +2,15 @@ package android.microntek.f1x.mtcdtools.service.dispatching;
 
 import android.content.Context;
 import android.content.Intent;
-import android.microntek.f1x.mtcdtools.service.dispatching.activities.ActionsListDispatchActivity;
-import android.os.AsyncTask;
-
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
+import android.microntek.f1x.mtcdtools.service.dispatching.activities.ActionsListDispatchActivity;
 import android.microntek.f1x.mtcdtools.service.storage.NamedObjectsStorage;
+import android.os.AsyncTask;
 
 import java.util.List;
 
@@ -34,29 +33,29 @@ public class NamedObjectDispatcher {
 
         NamedObject namedObject = mNamedObjectsStorage.getItem(namedObjectId);
 
-        if(namedObject == null) {
+        if (namedObject == null) {
             return;
         }
 
         final String objectType = namedObject.getObjectType();
 
-        switch(objectType) {
+        switch (objectType) {
             case ActionsList.OBJECT_TYPE:
-                this.dispatchActionsList((ActionsList)namedObject, context);
+                this.dispatchActionsList((ActionsList) namedObject, context);
                 break;
 
             case ActionsSequence.OBJECT_TYPE:
-                ActionsSequence actionsSequence = (ActionsSequence)namedObject;
+                ActionsSequence actionsSequence = (ActionsSequence) namedObject;
                 executeDispatchingTask(context, actionsSequence.getId());
                 break;
 
             case ModeList.OBJECT_TYPE:
-                ModeList modeList = (ModeList)namedObject;
+                ModeList modeList = (ModeList) namedObject;
                 dispatch(modeList.evaluate(), context);
                 break;
 
             default:
-                Action action = (Action)namedObject;
+                Action action = (Action) namedObject;
                 action.evaluate(context);
         }
     }
@@ -74,7 +73,7 @@ public class NamedObjectDispatcher {
     }
 
     private void tryCancelDispatchingTask() {
-        if(mNamedObjectsDispatchingTask != null && mNamedObjectsDispatchingTask.getStatus() == AsyncTask.Status.RUNNING) {
+        if (mNamedObjectsDispatchingTask != null && mNamedObjectsDispatchingTask.getStatus() == AsyncTask.Status.RUNNING) {
             mNamedObjectsDispatchingTask.cancel(true);
         }
     }

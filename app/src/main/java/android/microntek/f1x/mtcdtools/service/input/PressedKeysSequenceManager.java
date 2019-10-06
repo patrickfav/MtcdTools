@@ -1,9 +1,8 @@
 package android.microntek.f1x.mtcdtools.service.input;
 
-import android.os.CountDownTimer;
-
 import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
 import android.microntek.f1x.mtcdtools.service.configuration.ConfigurationChangeListener;
+import android.os.CountDownTimer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public abstract class PressedKeysSequenceManager implements ConfigurationChangeL
     }
 
     private void onTimerFinish() {
-        if(!mListeners.isEmpty()) {
+        if (!mListeners.isEmpty()) {
             mListeners.get(mListeners.size() - 1).handleKeysSequence(mPressedKeysSequence);
             mPressedKeysSequence.clear();
         }
@@ -47,14 +46,14 @@ public abstract class PressedKeysSequenceManager implements ConfigurationChangeL
 
     @Override
     public void onParameterChanged(String parameterName, Configuration configuration) {
-        if(parameterName.equals(Configuration.KEY_PRESS_SPEED_PROPERTY_NAME)) {
+        if (parameterName.equals(Configuration.KEY_PRESS_SPEED_PROPERTY_NAME)) {
             mKeysCollectingTimer.cancel();
             mKeysCollectingTimer = createKeyCollectingTimer(configuration.getKeyPressSpeed());
         }
     }
 
     protected void insertKeyCode(int keyCode) {
-        if(!mListeners.isEmpty()) {
+        if (!mListeners.isEmpty()) {
             mListeners.get(mListeners.size() - 1).handleSingleKey(keyCode);
 
             mPressedKeysSequence.add(keyCode);
@@ -66,7 +65,8 @@ public abstract class PressedKeysSequenceManager implements ConfigurationChangeL
     private CountDownTimer createKeyCollectingTimer(int delayMs) {
         return new CountDownTimer(delayMs, delayMs) {
             @Override
-            public void onTick(long l) {}
+            public void onTick(long l) {
+            }
 
             @Override
             public void onFinish() {

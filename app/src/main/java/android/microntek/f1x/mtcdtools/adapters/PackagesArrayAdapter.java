@@ -5,13 +5,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.adapters.entries.PackageEntry;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.adapters.entries.PackageEntry;
 
 /**
  * Created by f1x on 2016-08-08.
@@ -24,10 +23,10 @@ class PackagesArrayAdapter extends ArrayAdapter<PackageEntry> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        TextView applicationNameTextView = (TextView)super.getView(position, convertView, parent);
+        TextView applicationNameTextView = (TextView) super.getView(position, convertView, parent);
         PackageEntry packageEntry = getItem(position);
 
-        if(packageEntry != null) {
+        if (packageEntry != null) {
             Drawable packageIcon = packageEntry.getIcon();
             packageIcon.setBounds(new Rect(0, 0, 64, 64));
 
@@ -48,7 +47,7 @@ class PackagesArrayAdapter extends ArrayAdapter<PackageEntry> {
             Drawable packageIcon = mPackageManager.getApplicationIcon(packageName);
             ApplicationInfo applicationInfo = mPackageManager.getApplicationInfo(packageName, 0);
             return new PackageEntry(packageIcon, mPackageManager.getApplicationLabel(applicationInfo).toString(), packageName);
-        } catch(PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 

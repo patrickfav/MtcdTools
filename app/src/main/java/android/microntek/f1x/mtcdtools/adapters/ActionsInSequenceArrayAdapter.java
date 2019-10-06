@@ -1,15 +1,14 @@
 package android.microntek.f1x.mtcdtools.adapters;
 
 import android.content.Context;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.adapters.entries.ActionInSequenceEntry;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.adapters.entries.ActionInSequenceEntry;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +28,12 @@ public class ActionsInSequenceArrayAdapter extends ArrayAdapter<ActionInSequence
     public View getView(int position, View convertView, ViewGroup parent) {
         View entryView = super.getView(position, convertView, parent);
 
-        TextView actionNameTextView = (TextView)entryView.findViewById(R.id.textViewActionName);
-        final TextView actionDelayValueTextView = (TextView)entryView.findViewById(R.id.textViewActionDelayValue);
+        TextView actionNameTextView = (TextView) entryView.findViewById(R.id.textViewActionName);
+        final TextView actionDelayValueTextView = (TextView) entryView.findViewById(R.id.textViewActionDelayValue);
 
         final ActionInSequenceEntry actionInSequenceEntry = getItem(position);
         actionDelayValueTextView.setText(String.format(Locale.getDefault(), "%d [ms]", actionInSequenceEntry.getDelay()));
-        SeekBar actionDelaySeekBar = (SeekBar)entryView.findViewById(R.id.seekBarActionDelay);
+        SeekBar actionDelaySeekBar = (SeekBar) entryView.findViewById(R.id.seekBarActionDelay);
 
         actionDelaySeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -56,7 +55,7 @@ public class ActionsInSequenceArrayAdapter extends ArrayAdapter<ActionInSequence
 
         ActionInSequenceEntry entry = getItem(position);
 
-        if(entry != null) {
+        if (entry != null) {
             actionNameTextView.setText(entry.getActionId().toString());
             actionDelaySeekBar.setProgress(entry.getDelay());
         }
@@ -72,16 +71,16 @@ public class ActionsInSequenceArrayAdapter extends ArrayAdapter<ActionInSequence
     public void reset(List<Map.Entry<NamedObjectId, Integer>> items) {
         clear();
 
-        for(Map.Entry<NamedObjectId, Integer> entry : items) {
+        for (Map.Entry<NamedObjectId, Integer> entry : items) {
             add(new ActionInSequenceEntry(entry.getKey(), entry.getValue()));
         }
     }
 
     public void removeAt(int position) {
-        if(position != -1 && position < getCount()) {
+        if (position != -1 && position < getCount()) {
             List<ActionInSequenceEntry> items = new ArrayList<>();
 
-            for(int i = 0; i < getCount(); ++i) {
+            for (int i = 0; i < getCount(); ++i) {
                 items.add(getItem(i));
             }
 

@@ -2,9 +2,8 @@ package android.microntek.f1x.mtcdtools.named.objects.actions;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
-
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,12 +34,12 @@ public class StartIntentAction extends CustomIntentAction {
         Intent intent = getIntent();
         intent.setFlags(mFlags);
 
-        if(!mIntentPackage.isEmpty() && !mClassName.isEmpty()) {
+        if (!mIntentPackage.isEmpty() && !mClassName.isEmpty()) {
             intent.setClassName(mIntentPackage, mClassName);
         }
 
         try {
-            if(mTarget == TARGET_ACTIVITY) {
+            if (mTarget == TARGET_ACTIVITY) {
                 context.startActivity(intent);
             } else {
                 context.startService(intent);
@@ -58,8 +57,6 @@ public class StartIntentAction extends CustomIntentAction {
         json.put(FLAGS_PROPERTY, mFlags);
         json.put(TARGET_PROPERTY, mTarget);
 
-
-
         return json;
     }
 
@@ -67,7 +64,9 @@ public class StartIntentAction extends CustomIntentAction {
         return mClassName;
     }
 
-    public int getFlags() { return mFlags; }
+    public int getFlags() {
+        return mFlags;
+    }
 
     public int getTarget() {
         return mTarget;

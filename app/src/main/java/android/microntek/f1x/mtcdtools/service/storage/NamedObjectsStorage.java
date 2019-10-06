@@ -3,8 +3,6 @@ package android.microntek.f1x.mtcdtools.service.storage;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.NamedObjectsFactory;
-import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
-import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.DuplicatedEntryException;
 import android.microntek.f1x.mtcdtools.service.storage.exceptions.EntryCreationFailed;
 
@@ -32,7 +30,7 @@ public class NamedObjectsStorage extends UniqueObjectsStorage<NamedObjectId, Nam
             JSONObject namedObjectJson = namedObjectsArray.getJSONObject(i);
             NamedObject namedObject = NamedObjectsFactory.createNamedObject(namedObjectJson);
 
-            if(namedObject == null) {
+            if (namedObject == null) {
                 throw new EntryCreationFailed(namedObjectJson.getString(NamedObject.NAME_PROPERTY));
             } else {
                 put(namedObject.getId(), namedObject);
@@ -44,7 +42,7 @@ public class NamedObjectsStorage extends UniqueObjectsStorage<NamedObjectId, Nam
     public void write() throws JSONException, IOException {
         JSONArray namedObjectsArray = new JSONArray();
 
-        for(Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
+        for (Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
             namedObjectsArray.put(entry.getValue().toJson());
         }
 
@@ -64,13 +62,13 @@ public class NamedObjectsStorage extends UniqueObjectsStorage<NamedObjectId, Nam
     }
 
     private void removeDependency(NamedObjectId dependencyId) {
-        for(Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
+        for (Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
             entry.getValue().removeDependency(dependencyId);
         }
     }
 
     private void replaceDependency(NamedObjectId oldId, NamedObjectId newId) {
-        for(Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
+        for (Map.Entry<NamedObjectId, NamedObject> entry : mItems.entrySet()) {
             entry.getValue().replaceDependency(oldId, newId);
         }
     }

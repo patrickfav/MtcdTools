@@ -33,6 +33,7 @@ public class Configuration implements SharedPreferences.OnSharedPreferenceChange
     public int getVoiceCommandExecutionDelay() {
         return mVoiceCommandExecutionDelay;
     }
+
     public void setVoiceCommandExecutionDelay(int value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(VOICE_COMMAND_EXECUTION_DELAY_PROPERTY_NAME, value);
@@ -44,6 +45,7 @@ public class Configuration implements SharedPreferences.OnSharedPreferenceChange
     public int getKeyPressSpeed() {
         return mKeyPressSpeed;
     }
+
     public void setKeyPressSpeed(int value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(KEY_PRESS_SPEED_PROPERTY_NAME, value);
@@ -55,6 +57,7 @@ public class Configuration implements SharedPreferences.OnSharedPreferenceChange
     public String getActionsVoiceDelimiter() {
         return mActionsVoiceDelimiter;
     }
+
     public void getActionsVoiceDelimiter(String value) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(ACTIONS_VOICE_DELIMITER_PROPERTY_NAME, value);
@@ -76,14 +79,14 @@ public class Configuration implements SharedPreferences.OnSharedPreferenceChange
     }
 
     private void notifyListeners(String parameterName) {
-        for(ConfigurationChangeListener listener : mConfigurationChangeListeners) {
+        for (ConfigurationChangeListener listener : mConfigurationChangeListeners) {
             listener.onParameterChanged(parameterName, this);
         }
     }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String propertyName) {
-        switch(propertyName) {
+        switch (propertyName) {
             case ACTION_EXECUTION_DELAY_PROPERTY_NAME:
                 mActionExecutionDelay = sharedPreferences.getInt(ACTION_EXECUTION_DELAY_PROPERTY_NAME, ACTION_EXECUTION_DELAY_DEFAULT_VALUE);
                 break;

@@ -1,14 +1,13 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects.actions;
 
-import android.widget.EditText;
-import android.widget.Toast;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.activities.named.objects.NamedObjectActivity;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
 import android.microntek.f1x.mtcdtools.named.objects.actions.CustomIntentAction;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,12 +25,12 @@ public abstract class CustomIntentActionActivity extends NamedObjectActivity {
     protected void initControls() {
         super.initControls();
 
-        mIntentActionEditText = (EditText)this.findViewById(R.id.editTextIntentAction);
-        mIntentCategoryEditText = (EditText)this.findViewById(R.id.editTextIntentCategory);
-        mIntentDataEditText = (EditText)this.findViewById(R.id.editTextIntentData);
-        mIntentPackageEditText = (EditText)this.findViewById(R.id.editTextIntentPackage);
-        mIntentTypeEditText = (EditText)this.findViewById(R.id.editTextIntentType);
-        mIntentExtrasEditText = (EditText)this.findViewById(R.id.editTextIntentExtras);
+        mIntentActionEditText = (EditText) this.findViewById(R.id.editTextIntentAction);
+        mIntentCategoryEditText = (EditText) this.findViewById(R.id.editTextIntentCategory);
+        mIntentDataEditText = (EditText) this.findViewById(R.id.editTextIntentData);
+        mIntentPackageEditText = (EditText) this.findViewById(R.id.editTextIntentPackage);
+        mIntentTypeEditText = (EditText) this.findViewById(R.id.editTextIntentType);
+        mIntentExtrasEditText = (EditText) this.findViewById(R.id.editTextIntentExtras);
     }
 
     @Override
@@ -40,8 +39,7 @@ public abstract class CustomIntentActionActivity extends NamedObjectActivity {
             String intentExtrasJsonString = mIntentExtrasEditText.getEditableText().toString();
             JSONObject intentExtrasJson = intentExtrasJsonString.isEmpty() ? new JSONObject() : new JSONObject(intentExtrasJsonString);
             return createAction(namedObjectId, intentExtrasJson);
-        }
-        catch(JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(CustomIntentActionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         }
@@ -54,7 +52,7 @@ public abstract class CustomIntentActionActivity extends NamedObjectActivity {
         super.fillControls(namedObject);
 
         try {
-            CustomIntentAction customIntentAction = (CustomIntentAction)namedObject;
+            CustomIntentAction customIntentAction = (CustomIntentAction) namedObject;
 
             mIntentActionEditText.setText(customIntentAction.getIntentAction());
             mIntentExtrasEditText.setText(customIntentAction.getIntentExtras().toString());
@@ -62,7 +60,7 @@ public abstract class CustomIntentActionActivity extends NamedObjectActivity {
             mIntentDataEditText.setText(customIntentAction.getIntentData());
             mIntentPackageEditText.setText(customIntentAction.getIntentPackage());
             mIntentTypeEditText.setText(customIntentAction.getIntentType());
-        } catch(JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
             Toast.makeText(CustomIntentActionActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             finish();

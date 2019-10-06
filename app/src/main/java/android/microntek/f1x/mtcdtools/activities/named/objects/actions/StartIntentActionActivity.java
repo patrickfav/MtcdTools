@@ -1,13 +1,12 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects.actions;
 
-import android.widget.EditText;
-import android.widget.RadioButton;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.Action;
 import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
+import android.widget.EditText;
+import android.widget.RadioButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,10 +21,10 @@ public class StartIntentActionActivity extends CustomIntentActionActivity {
     @Override
     protected void initControls() {
         super.initControls();
-        mClassNameEditText = (EditText)this.findViewById(R.id.editTextClassName);
-        mFlagsNameEditText = (EditText)this.findViewById(R.id.editTextFlags);
-        mTargetActivityRadioButton = (RadioButton)this.findViewById(R.id.radioButtonActivity);
-        mTargetServiceRadioButton = (RadioButton)this.findViewById(R.id.radioButtonService);
+        mClassNameEditText = (EditText) this.findViewById(R.id.editTextClassName);
+        mFlagsNameEditText = (EditText) this.findViewById(R.id.editTextFlags);
+        mTargetActivityRadioButton = (RadioButton) this.findViewById(R.id.radioButtonActivity);
+        mTargetServiceRadioButton = (RadioButton) this.findViewById(R.id.radioButtonService);
 
         mTargetActivityRadioButton.setChecked(true);
     }
@@ -34,7 +33,7 @@ public class StartIntentActionActivity extends CustomIntentActionActivity {
     protected void fillControls(NamedObject namedObject) throws ClassCastException {
         super.fillControls(namedObject);
 
-        StartIntentAction startIntentAction = (StartIntentAction)namedObject;
+        StartIntentAction startIntentAction = (StartIntentAction) namedObject;
         mClassNameEditText.setText(startIntentAction.getClassName());
         mFlagsNameEditText.setText(String.format(Locale.getDefault(), "%d", startIntentAction.getFlags()));
 

@@ -1,11 +1,10 @@
 package android.microntek.f1x.mtcdtools.service.input;
 
 import android.microntek.CarManager;
+import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-
-import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
 
 /**
  * Created by COMPUTER on 2017-06-19.

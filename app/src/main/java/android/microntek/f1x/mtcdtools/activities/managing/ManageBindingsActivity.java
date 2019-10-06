@@ -1,19 +1,18 @@
 package android.microntek.f1x.mtcdtools.activities.managing;
 
 import android.content.Intent;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.activities.input.BindingActivity;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
+import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.activities.input.BindingActivity;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceBinding;
-import android.microntek.f1x.mtcdtools.utils.KeysSequenceConverter;
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +34,7 @@ public class ManageBindingsActivity extends ServiceActivity {
         setContentView(R.layout.activity_manage_bindings);
 
         mBindingsArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_checked);
-        mBindingsListView = (ListView)this.findViewById(R.id.listViewBindings);
+        mBindingsListView = (ListView) this.findViewById(R.id.listViewBindings);
         mBindingsListView.setAdapter(mBindingsArrayAdapter);
 
         mBindingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -47,7 +46,7 @@ public class ManageBindingsActivity extends ServiceActivity {
 
                     mServiceBinder.getKeysSequenceBindingsStorage().remove(keysSequence);
                     mBindingsArrayAdapter.remove(keysSequenceString);
-                } catch(IOException | JSONException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ManageBindingsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -75,7 +74,7 @@ public class ManageBindingsActivity extends ServiceActivity {
         mBindingsListView.clearChoices();
         mBindingsListView.requestLayout();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mServiceBinder.getPressedKeysSequenceManager().pushListener(mKeysSequenceListener);
             mBindingsArrayAdapter.clear();
             mBindingsArrayAdapter.addAll(bindingsToStringList(mServiceBinder.getKeysSequenceBindingsStorage().getItems()));
@@ -86,7 +85,7 @@ public class ManageBindingsActivity extends ServiceActivity {
     protected void onPause() {
         super.onPause();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mServiceBinder.getPressedKeysSequenceManager().popListener(mKeysSequenceListener);
         }
     }
@@ -102,7 +101,7 @@ public class ManageBindingsActivity extends ServiceActivity {
     private Set<String> bindingsToStringList(Map<List<Integer>, KeysSequenceBinding> bindings) {
         Set<String> bindingsList = new HashSet<>();
 
-        for(List<Integer> keysSequence : bindings.keySet()) {
+        for (List<Integer> keysSequence : bindings.keySet()) {
             JSONArray jsonArray = KeysSequenceConverter.toJsonArray(keysSequence);
             bindingsList.add(jsonArray.toString());
         }
@@ -117,7 +116,7 @@ public class ManageBindingsActivity extends ServiceActivity {
             mBindingsListView.requestLayout();
             int position = mBindingsArrayAdapter.getPosition(KeysSequenceConverter.toJsonArray(keysSequence).toString());
 
-            if(position != -1) {
+            if (position != -1) {
                 mBindingsListView.setItemChecked(position, true);
                 mBindingsListView.requestFocusFromTouch();
                 mBindingsListView.setSelection(position);

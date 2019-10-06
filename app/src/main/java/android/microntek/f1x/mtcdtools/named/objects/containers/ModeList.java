@@ -29,7 +29,7 @@ public class ModeList extends NamedObjectsContainer {
             mListIndexer.down();
 
             return mActionIds.get(index);
-        } catch(IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             e.printStackTrace();
             return null;
         }

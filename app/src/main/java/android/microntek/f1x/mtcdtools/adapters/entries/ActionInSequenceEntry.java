@@ -19,6 +19,7 @@ public class ActionInSequenceEntry {
     public void setDelay(int delay) {
         mDelay = delay;
     }
+
     public int getDelay() {
         return mDelay;
     }

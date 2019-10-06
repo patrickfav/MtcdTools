@@ -1,32 +1,31 @@
 package android.microntek.f1x.mtcdtools.activities.managing;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.activities.named.objects.ActionsListActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.ActionsSequenceActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.ModeListActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.NamedObjectActivity;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.actions.BroadcastIntentActionActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.actions.KeyActionActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.actions.LaunchActionActivity;
 import android.microntek.f1x.mtcdtools.activities.named.objects.actions.StartIntentActionActivity;
 import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.BroadcastIntentAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.KeyAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.LaunchAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -39,7 +38,7 @@ public class ManageNamedObjectsActivity extends ServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_named_objects);
 
-        ListView mNamedObjectsListView = (ListView)this.findViewById(R.id.listViewAddedNamedObjects);
+        ListView mNamedObjectsListView = (ListView) this.findViewById(R.id.listViewAddedNamedObjects);
         mNamedObjectIdsArrayAdapter = new NamedObjectIdsArrayAdapter(this);
         mNamedObjectsListView.setAdapter(mNamedObjectIdsArrayAdapter);
 
@@ -52,7 +51,7 @@ public class ManageNamedObjectsActivity extends ServiceActivity {
                     mServiceBinder.getKeysSequenceBindingsStorage().removeBindingWithTarget(namedObjectId);
                     mServiceBinder.getAutorunStorage().remove(namedObjectId);
                     mNamedObjectIdsArrayAdapter.remove(namedObjectId);
-                } catch(IOException | JSONException e) {
+                } catch (IOException | JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(ManageNamedObjectsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -70,7 +69,7 @@ public class ManageNamedObjectsActivity extends ServiceActivity {
                 Intent intent = new Intent();
                 intent.putExtra(NamedObjectActivity.NAMED_OBJECT_ID_PARAMETER, namedObjectId);
 
-                switch(namedObject.getObjectType()) {
+                switch (namedObject.getObjectType()) {
                     case KeyAction.OBJECT_TYPE:
                         intent.setClass(ManageNamedObjectsActivity.this, KeyActionActivity.class);
                         break;
@@ -106,7 +105,7 @@ public class ManageNamedObjectsActivity extends ServiceActivity {
     protected void onResume() {
         super.onResume();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mNamedObjectIdsArrayAdapter.reset(mServiceBinder.getNamedObjectsStorage().getItems());
         }
     }

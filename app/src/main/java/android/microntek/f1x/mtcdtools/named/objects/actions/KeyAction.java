@@ -3,11 +3,10 @@ package android.microntek.f1x.mtcdtools.named.objects.actions;
 import android.content.Context;
 import android.media.AudioManager;
 import android.microntek.CarManager;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.utils.PlatformChecker;
 import android.view.KeyEvent;
 import android.widget.Toast;
-
-import android.microntek.f1x.mtcdtools.utils.PlatformChecker;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,14 +33,14 @@ public class KeyAction extends Action {
         try {
             AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
 
-            if(canEvaluate(audioManager)) { // workaround for MTC stuff
+            if (canEvaluate(audioManager)) { // workaround for MTC stuff
                 KeyEvent keyEventDown = new KeyEvent(KeyEvent.ACTION_DOWN, mKeyCode);
                 audioManager.dispatchMediaKeyEvent(keyEventDown);
 
                 KeyEvent keyEventUp = new KeyEvent(KeyEvent.ACTION_UP, mKeyCode);
                 audioManager.dispatchMediaKeyEvent(keyEventUp);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
         }
@@ -60,7 +59,7 @@ public class KeyAction extends Action {
     }
 
     private boolean canEvaluate(AudioManager audioManager) {
-        if(mCarManager != null) {
+        if (mCarManager != null) {
             return mCarManager.getStringState("av_channel").equals("sys");
         } else {
             String parameterValue = audioManager.getParameters("av_channel=");

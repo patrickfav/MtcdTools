@@ -1,15 +1,14 @@
 package android.microntek.f1x.mtcdtools.activities.input;
 
 import android.content.Intent;
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
 
 import java.util.List;
 
@@ -20,10 +19,10 @@ public class ObtainKeysSequenceActivity extends ServiceActivity {
         setContentView(R.layout.activity_obtain_keys_sequence);
 
         mPressedKeysArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
-        ListView keysSequenceListView = (ListView)this.findViewById(R.id.listViewKeysSequence);
+        ListView keysSequenceListView = (ListView) this.findViewById(R.id.listViewKeysSequence);
         keysSequenceListView.setAdapter(mPressedKeysArrayAdapter);
 
-        Button resetButton = (Button)this.findViewById(R.id.buttonReset);
+        Button resetButton = (Button) this.findViewById(R.id.buttonReset);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,13 +30,13 @@ public class ObtainKeysSequenceActivity extends ServiceActivity {
             }
         });
 
-        Button saveButton = (Button)this.findViewById(R.id.buttonSave);
+        Button saveButton = (Button) this.findViewById(R.id.buttonSave);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int keysSequence[] = new int[mPressedKeysArrayAdapter.getCount()];
 
-                for(int i = 0; i < mPressedKeysArrayAdapter.getCount(); ++i) {
+                for (int i = 0; i < mPressedKeysArrayAdapter.getCount(); ++i) {
                     keysSequence[i] = mPressedKeysArrayAdapter.getItem(i);
                 }
 
@@ -48,7 +47,7 @@ public class ObtainKeysSequenceActivity extends ServiceActivity {
             }
         });
 
-        Button cancelButton = (Button)this.findViewById(R.id.buttonCancel);
+        Button cancelButton = (Button) this.findViewById(R.id.buttonCancel);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +66,7 @@ public class ObtainKeysSequenceActivity extends ServiceActivity {
     protected void onResume() {
         super.onResume();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mServiceBinder.getPressedKeysSequenceManager().pushListener(mKeysSequenceListener);
         }
     }
@@ -76,7 +75,7 @@ public class ObtainKeysSequenceActivity extends ServiceActivity {
     protected void onPause() {
         super.onPause();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mServiceBinder.getPressedKeysSequenceManager().popListener(mKeysSequenceListener);
         }
     }

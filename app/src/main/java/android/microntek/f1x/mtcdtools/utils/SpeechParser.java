@@ -11,9 +11,9 @@ public class SpeechParser {
     public List<String> parse(String text, String separator) {
         List<String> extractedObjectsNames = new ArrayList<>();
 
-        if(!separator.isEmpty()) {
+        if (!separator.isEmpty()) {
             parseText(extractedObjectsNames, text, separator);
-        } else if(!contains(extractedObjectsNames, text)) {
+        } else if (!contains(extractedObjectsNames, text)) {
             extractedObjectsNames.add(text);
         }
 
@@ -23,18 +23,18 @@ public class SpeechParser {
     private void parseText(List<String> output, String text, String separator) {
         String[] parts = text.split(separator);
 
-        for(String part : parts) {
+        for (String part : parts) {
             String trimmedPart = part.trim();
 
-            if(!contains(output, trimmedPart)) {
+            if (!contains(output, trimmedPart)) {
                 output.add(trimmedPart);
             }
         }
     }
 
     private boolean contains(List<String> list, String item) {
-        for(String value : list) {
-            if(value.equals(item)) {
+        for (String value : list) {
+            if (value.equals(item)) {
                 return true;
             }
         }

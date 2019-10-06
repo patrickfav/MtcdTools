@@ -14,12 +14,12 @@ public class ListIndexer {
     }
 
     public int up() throws IndexOutOfBoundsException {
-        if(mMax < 1) {
+        if (mMax < 1) {
             throw new IndexOutOfBoundsException();
         }
 
-        if((mCurrentIndex - 1) < 0) {
-            mCurrentIndex = mMax -1;
+        if ((mCurrentIndex - 1) < 0) {
+            mCurrentIndex = mMax - 1;
         } else {
             mCurrentIndex--;
         }
@@ -28,11 +28,11 @@ public class ListIndexer {
     }
 
     public int down() throws IndexOutOfBoundsException {
-        if(mMax < 1) {
-            throw new  IndexOutOfBoundsException();
+        if (mMax < 1) {
+            throw new IndexOutOfBoundsException();
         }
 
-        if((mCurrentIndex + 1) < mMax) {
+        if ((mCurrentIndex + 1) < mMax) {
             mCurrentIndex++;
         } else {
             mCurrentIndex = 0;
@@ -42,8 +42,8 @@ public class ListIndexer {
     }
 
     public int current() throws IndexOutOfBoundsException {
-        if(mMax < 1) {
-            throw new  IndexOutOfBoundsException();
+        if (mMax < 1) {
+            throw new IndexOutOfBoundsException();
         }
 
         return mCurrentIndex;

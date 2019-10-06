@@ -1,5 +1,14 @@
 package android.microntek.f1x.mtcdtools.service.dispatching.activities;
 
+import android.microntek.f1x.mtcdtools.R;
+import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
+import android.microntek.f1x.mtcdtools.named.NamedObject;
+import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
+import android.microntek.f1x.mtcdtools.service.ServiceActivity;
+import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
+import android.microntek.f1x.mtcdtools.service.configuration.ConfigurationChangeListener;
+import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
 import android.microntek.f1x.mtcdtools.utils.ListViewScroller;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -10,16 +19,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import android.microntek.f1x.mtcdtools.R;
-import android.microntek.f1x.mtcdtools.service.ServiceActivity;
-import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
-import android.microntek.f1x.mtcdtools.service.configuration.Configuration;
-import android.microntek.f1x.mtcdtools.service.configuration.ConfigurationChangeListener;
-import android.microntek.f1x.mtcdtools.service.input.KeysSequenceListener;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsList;
-import android.microntek.f1x.mtcdtools.named.NamedObject;
-import android.microntek.f1x.mtcdtools.named.NamedObjectId;
-
 import java.util.List;
 
 public class ActionsListDispatchActivity extends ServiceActivity {
@@ -29,11 +28,11 @@ public class ActionsListDispatchActivity extends ServiceActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_named_object);
 
-        mExecuteActionProgressBar = (ProgressBar)this.findViewById(R.id.progressBarExecuteAction);
+        mExecuteActionProgressBar = (ProgressBar) this.findViewById(R.id.progressBarExecuteAction);
         mActionsListId = this.getIntent().getParcelableExtra(ACTIONS_LIST_ID_PARAMETER);
         mActionIdsArrayAdapter = new NamedObjectIdsArrayAdapter(this, R.layout.layout_action_name_row);
 
-        mActionsListView = (ListView)this.findViewById(R.id.listViewAddedNamedObjects);
+        mActionsListView = (ListView) this.findViewById(R.id.listViewAddedNamedObjects);
         mActionsListView.setAdapter(mActionIdsArrayAdapter);
         mActionsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -57,12 +56,12 @@ public class ActionsListDispatchActivity extends ServiceActivity {
     protected void onPause() {
         super.onPause();
 
-        if(mServiceBinder != null) {
+        if (mServiceBinder != null) {
             mServiceBinder.getPressedKeysSequenceManager().popListener(mKeysSequenceListener);
             mServiceBinder.getConfiguration().removeChangeListener(mConfigurationChangeListener);
         }
 
-        if(mActionExecutionTimer != null) {
+        if (mActionExecutionTimer != null) {
             mActionExecutionTimer.cancel();
         }
     }
@@ -71,14 +70,14 @@ public class ActionsListDispatchActivity extends ServiceActivity {
     protected void onServiceConnected() {
         NamedObject namedObject = mActionsListId == null ? null : mServiceBinder.getNamedObjectsStorage().getItem(mActionsListId);
 
-        if(namedObject == null || !namedObject.getObjectType().equals(ActionsList.OBJECT_TYPE)) {
+        if (namedObject == null || !namedObject.getObjectType().equals(ActionsList.OBJECT_TYPE)) {
             Toast.makeText(this, this.getText(R.string.UnknownObjectType), Toast.LENGTH_LONG).show();
             finish();
 
             return;
         }
 
-        mActionsList = (ActionsList)namedObject;
+        mActionsList = (ActionsList) namedObject;
         mServiceBinder.getConfiguration().addChangeListener(mConfigurationChangeListener);
         mExecuteActionProgressBar.setMax(mServiceBinder.getConfiguration().getActionExecutionDelay());
         mServiceBinder.getPressedKeysSequenceManager().pushListener(mKeysSequenceListener);
@@ -102,7 +101,7 @@ public class ActionsListDispatchActivity extends ServiceActivity {
                     @Override
                     public void run() {
                         int checkedActionPosition = mActionsListView.getCheckedItemPosition();
-                        if(checkedActionPosition != ListView.INVALID_POSITION) {
+                        if (checkedActionPosition != ListView.INVALID_POSITION) {
                             mActionsListView.performItemClick(mActionsListView.getAdapter().getView(checkedActionPosition, null, null), checkedActionPosition, checkedActionPosition);
                         } else {
                             ActionsListDispatchActivity.this.finish();
@@ -138,7 +137,7 @@ public class ActionsListDispatchActivity extends ServiceActivity {
     private final ConfigurationChangeListener mConfigurationChangeListener = new ConfigurationChangeListener() {
         @Override
         public void onParameterChanged(String parameterName, Configuration configuration) {
-            if(parameterName.equals(Configuration.VOICE_COMMAND_EXECUTION_DELAY_PROPERTY_NAME)) {
+            if (parameterName.equals(Configuration.VOICE_COMMAND_EXECUTION_DELAY_PROPERTY_NAME)) {
                 mActionExecutionTimer = createActionExecutionTimer(mServiceBinder.getConfiguration().getActionExecutionDelay());
                 mActionExecutionTimer.start();
                 mExecuteActionProgressBar.setMax(mServiceBinder.getConfiguration().getActionExecutionDelay());
@@ -149,10 +148,10 @@ public class ActionsListDispatchActivity extends ServiceActivity {
     private final KeysSequenceListener mKeysSequenceListener = new KeysSequenceListener() {
         @Override
         public void handleKeysSequence(List<Integer> keysSequence) {
-            if(mActionsList.getKeysSequenceDown().size() > 1 && mActionsList.getKeysSequenceDown().equals(keysSequence)) {
+            if (mActionsList.getKeysSequenceDown().size() > 1 && mActionsList.getKeysSequenceDown().equals(keysSequence)) {
                 mListViewScroller.scrollDown();
                 restartTimer();
-            } else if(mActionsList.getKeysSequenceUp().size() > 1 && mActionsList.getKeysSequenceUp().equals(keysSequence)) {
+            } else if (mActionsList.getKeysSequenceUp().size() > 1 && mActionsList.getKeysSequenceUp().equals(keysSequence)) {
                 mListViewScroller.scrollUp();
                 restartTimer();
             }
@@ -160,10 +159,10 @@ public class ActionsListDispatchActivity extends ServiceActivity {
 
         @Override
         public void handleSingleKey(int keyCode) {
-            if(mActionsList.getKeysSequenceDown().size() == 1 && mActionsList.getKeysSequenceDown().contains(keyCode)) {
+            if (mActionsList.getKeysSequenceDown().size() == 1 && mActionsList.getKeysSequenceDown().contains(keyCode)) {
                 mListViewScroller.scrollDown();
                 restartTimer();
-            } else if(mActionsList.getKeysSequenceUp().size() == 1 && mActionsList.getKeysSequenceUp().contains(keyCode)) {
+            } else if (mActionsList.getKeysSequenceUp().size() == 1 && mActionsList.getKeysSequenceUp().contains(keyCode)) {
                 mListViewScroller.scrollUp();
                 restartTimer();
             }

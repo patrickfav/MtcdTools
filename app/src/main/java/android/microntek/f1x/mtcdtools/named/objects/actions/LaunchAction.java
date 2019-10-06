@@ -2,9 +2,8 @@ package android.microntek.f1x.mtcdtools.named.objects.actions;
 
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
-
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +27,11 @@ public class LaunchAction extends Action {
     public void evaluate(Context context) {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(mPackageName);
 
-        if(intent != null) {
+        if (intent != null) {
             try {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
             }

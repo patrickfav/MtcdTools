@@ -1,20 +1,19 @@
 package android.microntek.f1x.mtcdtools.activities.named.objects;
 
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-
 import android.microntek.f1x.mtcdtools.R;
 import android.microntek.f1x.mtcdtools.adapters.NamedObjectIdsArrayAdapter;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
-import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
 import android.microntek.f1x.mtcdtools.named.NamedObject;
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
 import android.microntek.f1x.mtcdtools.named.objects.actions.BroadcastIntentAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.KeyAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.LaunchAction;
 import android.microntek.f1x.mtcdtools.named.objects.actions.StartIntentAction;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ActionsSequence;
+import android.microntek.f1x.mtcdtools.named.objects.containers.ModeList;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import java.util.Arrays;
 import java.util.TreeSet;
@@ -57,8 +56,8 @@ public class ModeListActivity extends NamedObjectsContainerActivity {
     @Override
     protected void fillControls(NamedObject namedObject) {
         super.fillControls(namedObject);
-        if(namedObject.getObjectType().equals(ModeList.OBJECT_TYPE)) {
-            ModeList modeList = (ModeList)namedObject;
+        if (namedObject.getObjectType().equals(ModeList.OBJECT_TYPE)) {
+            ModeList modeList = (ModeList) namedObject;
             mModeListArrayAdapter.reset(modeList.getActionIds());
         }
     }

@@ -28,7 +28,7 @@ public class KeyCodesArrayAdapter extends ArrayAdapter<String> {
     }
 
     public int getKeyCode(String key) {
-        if(mKeyCodesMap.containsKey(key)) {
+        if (mKeyCodesMap.containsKey(key)) {
             return mKeyCodesMap.get(key);
         }
 
@@ -36,9 +36,9 @@ public class KeyCodesArrayAdapter extends ArrayAdapter<String> {
     }
 
     public int getPosition(int keyCode) {
-        for(int i = 0; i < getCount(); ++i) {
+        for (int i = 0; i < getCount(); ++i) {
             String keyCodeString = getItem(i);
-            if(mKeyCodesMap.containsKey(keyCodeString) && mKeyCodesMap.get(keyCodeString) == keyCode) {
+            if (mKeyCodesMap.containsKey(keyCodeString) && mKeyCodesMap.get(keyCodeString) == keyCode) {
                 return i;
             }
         }

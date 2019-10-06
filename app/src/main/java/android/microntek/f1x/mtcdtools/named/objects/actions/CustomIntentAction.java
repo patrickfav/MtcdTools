@@ -1,9 +1,8 @@
 package android.microntek.f1x.mtcdtools.named.objects.actions;
 
 import android.content.Intent;
-import android.os.Bundle;
-
 import android.microntek.f1x.mtcdtools.named.NamedObjectId;
+import android.os.Bundle;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,27 +52,27 @@ public abstract class CustomIntentAction extends Action {
     Intent getIntent() {
         Intent intent = new Intent();
 
-        if(!mIntentPackage.isEmpty()) {
+        if (!mIntentPackage.isEmpty()) {
             intent.setPackage(mIntentPackage);
         }
 
-        if(!mIntentAction.isEmpty()) {
+        if (!mIntentAction.isEmpty()) {
             intent.setAction(mIntentAction);
         }
 
-        if(!mIntentCategory.isEmpty()) {
+        if (!mIntentCategory.isEmpty()) {
             intent.addCategory(mIntentCategory);
         }
 
-        if(!mIntentData.isEmpty()) {
+        if (!mIntentData.isEmpty()) {
             intent.setData(UriParser.fromString(mIntentData));
         }
 
-        if(!mIntentType.isEmpty()) {
+        if (!mIntentType.isEmpty()) {
             intent.setType(mIntentType);
         }
 
-        if(!mIntentExtras.isEmpty()) {
+        if (!mIntentExtras.isEmpty()) {
             intent.putExtras(mIntentExtras);
         }
 
