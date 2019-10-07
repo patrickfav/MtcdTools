@@ -2,8 +2,8 @@
 
 As of version 1.3, MtcdTools is even more powerful.
 
-[![GitHub release](https://img.shields.io/github/release/patrickfav/MtcTools.svg)](https://github.com/patrickfav/MtcTools/releases/latest)
-[![Build Status](https://travis-ci.org/patrickfav/MtcTools.svg?branch=master)](https://travis-ci.org/patrickfav/MtcTools)
+[![GitHub release](https://img.shields.io/github/release/patrickfav/MtcdTools.svg)](https://github.com/patrickfav/MtcdTools/releases/latest)
+[![Build Status](https://travis-ci.org/patrickfav/MtcdTools.svg?branch=master)](https://travis-ci.org/patrickfav/MtcdTools)
 
 # Available features:
 
@@ -69,7 +69,7 @@ As of version 1.4, the MODE functionality has been added. To the MODE list you c
 As of version 1.3 you are able to bind your defined objects (actions, action sequences, action lists, MODE lists) not only to single key but also to keys sequence. It means that you can press any variation of hard keys (device keys and steering wheel keys) to execute your defined action.
 
 ## Voice control
-> If you want to make hands-free calls, consider to use [MtcTools](https://github.com/f1xpl/MtcTools).
+> If you want to make hands-free calls, consider to use [MtcdTools](https://github.com/f1xpl/MtcdTools).
 
 As of version 1.3 you are able to control your device using voice. You can say your defined actions or action sequences names, then MtcdTools will execute it for you with provided order. It is possible to execute a single action or action sequence, or mix them together using "concatenation word" that you can define in Settings. Voice control is localized. Input language corresponds to the local language of your device. If "Google Now" supports your language, then MtcdTools will support it as well.
 
