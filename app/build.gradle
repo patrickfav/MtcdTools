@@ -8,10 +8,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file(localProps.getProperty('RELEASE_KEYSTORE_PATH','fillhere'))
-            storePassword localProps.getProperty('RELEASE_KEYSTORE_PW','')
-            keyAlias localProps.getProperty('RELEASE_KEY_ALIAS','')
-            keyPassword localProps.getProperty('RELEASE_KEY_PW','')
+            storeFile file(localProps.getProperty('RELEASE_KEYSTORE_PATH', 'fillhere'))
+            storePassword localProps.getProperty('RELEASE_KEYSTORE_PW', '')
+            keyAlias localProps.getProperty('RELEASE_KEY_ALIAS', '')
+            keyPassword localProps.getProperty('RELEASE_KEY_PW', '')
         }
     }
 
@@ -27,7 +27,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
