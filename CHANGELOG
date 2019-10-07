@@ -1,0 +1,8 @@
+# Releases
+
+## v1.10.0
+* add compatibility for Android 9 & 10
+* update build config
+
+## v1.9.0
+ initial release -> see https://github.com/f1xpl/MtcdTools
